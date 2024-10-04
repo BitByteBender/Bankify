@@ -12,6 +12,8 @@ class Account(BaseModel, Base):
     credits = Column(Integer, nullable=False, default=0)
     on_hold = Column(Boolean, default=False)
 
+    trx = relationship("Transaction", backref="account", cascade="all, delete-orphan")
+
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
