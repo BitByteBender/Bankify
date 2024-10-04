@@ -2,7 +2,7 @@
 
 import models
 from models.base_model import BaseModel, Base
-from sqlalchemy import Column, ForeignKey, DECIMAL, DateTime
+from sqlalchemy import Column, ForeignKey, DECIMAL, String, DateTime
 from sqlalchemy.orm import relationship
 from datetime import datetime
 

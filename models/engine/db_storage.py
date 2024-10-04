@@ -26,9 +26,9 @@ class DBStorage:
         BK_MYSQL_HOST = getenv('BK_MYSQL_HOST')
         BK_MYSQL_PORT = getenv('BK_MYSQL_PORT')
         BK_MYSQL_DB = getenv('BK_MYSQL_DB')
-        Bk_ENV = getenv('BK_ENV')
+        BK_ENV = getenv('BK_ENV')
         self.__engine = create_engine('mysql+mysqldb://{}:{}@{}:{}/{}'.
-                                       format(Bk_MYSQL_USR,
+                                       format(BK_MYSQL_USR,
                                               BK_MYSQL_PWD,
                                               BK_MYSQL_HOST,
                                               BK_MYSQL_PORT,
