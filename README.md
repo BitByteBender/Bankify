@@ -13,7 +13,7 @@ Team Members:
 
 Soufiane Sadgali || Project Manager & Backend Architect
 
-Mohammed Shab || Solution Tester
+Mohammed Shab || Solution Tester || mrcloud.med@gmail.com || Github - mo-shab
 
 Olatunji Oluwadare || Backend Engineer || tunjidare2@yahoo.com || Github - DevTunechi 
 
