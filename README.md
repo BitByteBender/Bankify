@@ -1,5 +1,6 @@
 **BANKIFY**
-Fortified by Security, Strengthened by Trust
+Fortified by *Security*, Strengthened by *Trust*
+
 
 **Overview**
 Bankify is a capstone project developed as part of our final task at ALX/Holberton School for Cohort 1 Hybrid Software Engineers. 
@@ -7,7 +8,6 @@ Bankify is a capstone project developed as part of our final task at ALX/Holbert
 This project is a culmination of all the knowledge and skills we've gained throughout the program. It incorporates key principles of web development, API architecture, security, and database management, all applied to a robust banking/transactional system. 
 
 Our *goal* was to build a simple yet secure and efficient banking platform that handles user transactions, manages accounts, and ensures data consistency—all while providing a seamless user experience.
-
 
 
 Team Members:
