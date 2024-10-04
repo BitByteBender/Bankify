@@ -2,7 +2,8 @@
 
 import models
 from models.base_model import BaseModel, Base
-from sqlalchemy import Column, ForeignKey, DECIMAL, Integer, Boolean
+from sqlalchemy import Column, String, ForeignKey, DECIMAL, Integer, Boolean
+from sqlalchemy.orm import relationship
 
 class Account(BaseModel, Base):
     __tablename__ = "accounts"
