@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
+from api.views import app_views
 from flask import Flask, jsonify, session
 from models import storage
-from api.views import app_views
 from os import getenv
 
 
