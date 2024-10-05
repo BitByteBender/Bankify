@@ -5,4 +5,4 @@
 * Created a test file
 * Updated the working structure
 * Created endpoints for retrieving a [All, Single] user(s)
-* Database + API endpoints Works properly
+* Retrieving/Inserting From/To Database using API endpoints Works properly
