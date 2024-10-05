@@ -1,5 +1,5 @@
 CREATE DATABASE IF NOT EXISTS bk_db;
 USE bk_db;
-CREATE USER IF NOT EXISTS 'bk_dev'@'localhost' IDENTIFIED BY 'BK@123Pwd';
+CREATE USER IF NOT EXISTS 'bk_dev'@'localhost' IDENTIFIED BY 'bk_dev_pwd';
 GRANT ALL PRIVILEGES ON bk_db.* TO 'bk_dev'@'localhost' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
