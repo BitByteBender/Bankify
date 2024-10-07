@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """ Users endpoints(routes) """
 from api.views import app_views
-from flask import abort, request
+from flask import abort, jsonify, request
 from models import storage
 from models.users import User
 from sqlalchemy.exc import IntegrityError
@@ -64,3 +64,27 @@ def insert_user_record():
         storage.rollback()
         abort(500, "Failed to insert a new user due to database constraint violation")
     return (json.dumps(new_user.to_dict()) + '\n', 201)
+
+
+@app_views.route(PATH + '/<user_id>', methods=['PUT'], strict_slashes=False)
+def update_user_record(user_id):
+    """ Updates a User record """
+    user_obj = storage.get(User, user_id) or abort(404, "User not found")
+    data = request.get_json() or abort(400, "Not a JSON")
+    key_fields = {'id', 'created_at', 'updated_at'}
+    [setattr(user_obj, key, value) for key, value in data.items()
+        if key not in key_fields]
+    storage.save()
+    return (json.dumps(user_obj.to_dict(), indent=3) + '\n', 200)
+
+
+@app_views.route(PATH + '/<user_id>', methods=['DEL'], strict_slashes=False)
+def deletes_user_record(user_id):
+    """ Deletes a User record """
+    user_obj = storage.get(User, user_id) or abort(404, "User not found")
+    try:
+        storage.delete(user_obj)
+        storage.save()
+        return (jsonify({}), 200)
+    except Exception as e:
+        return (jsonify({"Error": str(e)}), 500)
