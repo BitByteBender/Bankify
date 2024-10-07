@@ -79,8 +79,8 @@ def update_user_record(user_id):
 
 
 @app_views.route(PATH + '/<user_id>', methods=['DEL'], strict_slashes=False)
-def delete_user_record(user_id):
-    """ Deleted a User record """
+def deletes_user_record(user_id):
+    """ Deletes a User record """
     user_obj = storage.get(User, user_id) or abort(404, "User not found")
     try:
         storage.delete(user_obj)

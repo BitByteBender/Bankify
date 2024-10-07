@@ -2,7 +2,7 @@
 """ Accounts endpoints(routes) """
 
 from api.views import app_views
-from flask import abort, request
+from flask import abort, jsonify, request
 from models import storage
 from models.users import User
 from models.accounts import Account
@@ -70,3 +70,27 @@ def insert_account(user_id):
         storage.rollback()
         abort(500, "Failed to insert a new account due to databassse constraint violation")
     return (json.dumps(new_account.to_dict()) + '\n', 201)
+
+
+@app_views.route(ACC_ID_PATH, methods=['PUT'], strict_slashes=False)
+def updates_account(account_id):
+    """ Updates a specific Account record by id """
+    account_obj = storage.get(Account, account_id) or abort(404, "Account not found")
+    data = request.get_json() or abort(400, "Not a JSON")
+    key_fields = {'id', 'user_id', 'created_at', 'updated_at'}
+    [setattr(account_obj, key, value) for key, value in data.items()
+        if key not in key_fields]
+    storage.save()
+    return (json.dumps(account_obj.to_dict(), indent=3) + '\n', 200)
+
+
+@app_views.route(ACC_ID_PATH, methods=['DEL'], strict_slashes=False)
+def deletes_account_record(account_id):
+    """ Deletes a specific Account record by id """
+    acc_obj = storage.get(Account, account_id) or abort(404, "Account not found")
+    try:
+        storage.delete(acc_obj)
+        storage.save()
+        return (jsonify({}), 200)
+    except Exception as e:
+        return (jsonify({"Error": str(e)}), 500)
