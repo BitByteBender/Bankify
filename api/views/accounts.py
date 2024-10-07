@@ -24,7 +24,14 @@ def get_all_accounts():
 
 @app_views.route(UA_PATH, methods=['GET'], strict_slashes=False)
 def get_all_user_accounts(user_id):
-    """ Retrives all Accounts specific to a User """
+    """ Retrieves all Accounts specific to a User """
     user_record = storage.get(User, user_id) or abort(404, "Not found")
     return (json.dumps([usr.to_dict() for usr in user_record.accounts],
-            indent=3) + '\n', 200)
+            indent=4) + '\n', 200)
+
+
+@app_views.route(ACCID_PATH, methods=['GET'], strict_slashes=False)
+def get_single_account(account_id):
+    """ Retrieves a specifc accoung based on its id """
+    acc_rec = storage.get(Account, account_id) or abort(404)
+    return (json.dumps(acc_rec.to_dict(), indent=4) + '\n', 200)
