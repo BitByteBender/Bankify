@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 
-import models
+from datetime import datetime
+from decimal import Decimal
 from sqlalchemy import Column, String, DateTime
 from sqlalchemy.orm import declarative_base
-from datetime import datetime
+import models
 import uuid
 
 
@@ -37,6 +38,8 @@ class BaseModel:
             value = getattr(self, col.name)
             if isinstance(value, datetime):
                 value = value.isoformat()
+            elif isinstance(value, Decimal):
+                value = float(value)
             new_dict[col.name] = value
         return new_dict
 
