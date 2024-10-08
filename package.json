@@ -1,0 +1,31 @@
+{
+    "name": "simple-banking-system-frontend",
+    "version": "1.0.0",
+    "description": "Front-end for a simple banking system with user authentication, account management, and transaction functionalities.",
+    "main": "js/main.js",
+    "scripts": {
+      "start": "http-server public -p 8080",
+      "build": "echo 'No build process defined'",
+      "test": "echo 'No tests defined'"
+    },
+    "keywords": [
+      "banking",
+      "frontend",
+      "web",
+      "javascript"
+    ],
+    "author": "Your Name",
+    "license": "MIT",
+    "dependencies": {
+      "http-server": "^0.12.3" 
+    },
+    "devDependencies": {
+      "eslint": "^8.29.0", 
+      "prettier": "^2.7.1"  
+    },
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/yourusername/simple-banking-system-frontend.git"
+    },
+    "homepage": "https://yourusername.github.io/simple-banking-system-frontend/"
+  }  
