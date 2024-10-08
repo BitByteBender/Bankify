@@ -1,0 +1,21 @@
+{
+    "name": "Banking App",
+    "short_name": "BankApp",
+    "start_url": "/index.html",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#007bff",
+    "description": "A simple banking system for managing your finances.",
+    "icons": [
+      {
+        "src": "images/icon-192x192.png", // Path to your app icon (192x192)
+        "sizes": "192x192",
+        "type": "image/png"
+      },
+      {
+        "src": "images/icon-512x512.png", // Path to your app icon (512x512)
+        "sizes": "512x512",
+        "type": "image/png"
+      }
+    ]
+  }  

@@ -1,0 +1,35 @@
+<!-- profile.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="../styles/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h2>User Profile</h2>
+        <form id="profileForm">
+            <label for="firstName">First Name:</label>
+            <input type="text" id="firstName" required>
+
+            <label for="lastName">Last Name:</label>
+            <input type="text" id="lastName" required>
+
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" required>
+
+            <label for="address">Address:</label>
+            <input type="text" id="address" required>
+
+            <button type="submit">Update Profile</button>
+        </form>
+    </div>
+    <script src="../components/button.js"></script> <!-- Include button.js for interactivity -->
+    <script src="../contexts/user.js"></script>  <!-- Include user.js for profile logic -->
+</body>
+</html>

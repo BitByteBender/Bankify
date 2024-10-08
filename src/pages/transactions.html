@@ -1,0 +1,38 @@
+<!-- transactions.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transactions</title>
+    <link rel="stylesheet" href="../styles/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Transaction History</h2>
+        <table id="transactionsTable">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Description</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Transaction history will be populated here -->
+            </tbody>
+        </table>
+        <form id="transactionForm">
+            <label for="amount">Amount:</label>
+            <input type="number" id="amount" required>
+
+            <label for="recipient">Recipient Email:</label>
+            <input type="email" id="recipient" required>
+
+            <button type="submit">Send Money</button>
+        </form>
+    </div>
+    <script src="../components/button.js"></script> <!-- Include button.js for interactivity -->
+    <script src="../contexts/transactions.js"></script>  <!-- Include transactions.js for transaction logic -->
+</body>
+</html>

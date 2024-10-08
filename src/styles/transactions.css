@@ -1,0 +1,24 @@
+/* transactions.css */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+table th, table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+}
+
+table th {
+    background-color: #007BFF;
+    color: white;
+}
+
+#transactionForm {
+    background-color: white;
+    padding: 15px;
+    border-radius: 5px;
+}

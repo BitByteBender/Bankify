@@ -1,0 +1,26 @@
+/* navbar.css */
+
+header {
+    background-color: #007BFF;
+    color: white;
+    padding: 15px;
+    text-align: center;
+}
+
+nav a {
+    margin: 0 15px;
+    color: white;
+    font-weight: bold;
+}
+
+nav button {
+    background-color: #FFC107;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+nav button:hover {
+    background-color: #FFCA2B;
+}

@@ -17,7 +17,7 @@ Mohammed Shab || Solution Tester || mrcloud.med@gmail.com || Github - mo-shab
 
 Olatunji Oluwadare || Backend Engineer || tunjidare2@yahoo.com || Github - DevTunechi 
 
-Justus Ndegwa || Frontend Engineer
+Justus Ndegwa || Frontend Engineer || justusgithinji257@gmail.com || Github - GithinjiJustus
 
 
 
