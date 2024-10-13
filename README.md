@@ -22,5 +22,5 @@
 *****************************
 * Login/Register for clients.
 * Login for admins.
-* Forget password. [TODO]
+* Forget password.
 *****************************
