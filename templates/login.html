@@ -9,6 +9,8 @@
     <button type="submit">Login</button>
 </form>
 
+<button id="forgotPasswordBtn">Forgot Password</button>
+
 <script>
     document.getElementById('loginForm').onsubmit = async function(event) {
         event.preventDefault();
@@ -24,11 +26,36 @@
         const result = await response.json();
         if (response.ok) {
             alert('Login successful!');
-	    window.location.href = result.redirect;
+            window.location.href = result.redirect;
         } else {
             alert('Error: ' + result.error);
         }
     }
+
+    document.getElementById('forgotPasswordBtn').onclick = async function() {
+        const email = document.getElementById('email').value;
+
+        if (!email) {
+            alert("Please enter your email before resetting your password.");
+            return;
+        }
+
+        const response = await fetch('/forgot_password', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email })
+        });
+
+        const result = await response.json();
+        if (response.ok) {
+            alert(result.message);
+            window.location.href = "/reset_password";  
+        } else {
+            alert('Error: ' + result.error);
+        }
+    };
 </script>
 </body>
 </html>
