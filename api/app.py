@@ -22,6 +22,14 @@ app.register_blueprint(app_views, url_prefix='/api')
 app.register_blueprint(auth_bp)
 
 
+@app.route('/profile', methods=['GET'], strict_slashes=False)
+def profile_page():
+    """ Renders profile_page """
+    if 'user_id' not in session:
+        return redirect(url_for('authentication_page'))
+    return render_template('profile.html', user_id=session['user_id'])
+
+
 @app.before_request
 def check_if_logged_in():
     """
