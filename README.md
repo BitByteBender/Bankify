@@ -17,10 +17,16 @@
 * Sender only sees transactions as Sent but not Received.
 * Receiver only sees transactions as Receiver but not Sent.
 * On transactions the record is being duplicated as Sent for sender and Received for receiver.
-**********************************************************************************************
+*********************************************************************************************
 * Authentication system:
 *****************************
 * Login/Register for clients.
 * Login for admins.
 * Forget password.
-*****************************
+****************************
+* Fetch Data {Profile}:
+****************************
+* Display
+* Update
+* Cancel on success/failure
+***************************
