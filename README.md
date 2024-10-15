@@ -41,3 +41,10 @@
 * Deposit [in-progress]
 * Withdraw [in-progress]
 ****************************
+* Accounts Functionality:
+**********************************************************
+* Client Side:
+-> Display user specific accounts [Done]
+* Dashboard:
+-> Users account list {View, Update, Delete, Cancel} [Done]
+**********************************************************
