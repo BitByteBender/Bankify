@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 
+<<<<<<< HEAD
 from api.views import app_views
+=======
+from api.views import app_views, transactions_bp
+>>>>>>> 7e811f048a543dee8deabb2eb8d2d42937b3de3c
 from flask import Flask, jsonify, render_template, session, redirect, url_for, request
 from flask_cors import CORS
 from flask_session import Session
@@ -20,7 +24,11 @@ app.config['SESSION_PERMANENT'] = False
 Session(app)
 
 app.register_blueprint(app_views, url_prefix='/api')
+<<<<<<< HEAD
 app.register_blueprint(auth_bp)
+=======
+app.register_blueprint(auth_bp, transactions_bp, url_prefix='/api')
+>>>>>>> 7e811f048a543dee8deabb2eb8d2d42937b3de3c
 
 
 def obfuscate_id(user_id):
