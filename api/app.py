@@ -5,12 +5,13 @@ from flask import Flask, jsonify, render_template, session, redirect, url_for, r
 from flask_cors import CORS
 from flask_session import Session
 from models import storage
+from models.users import User
 from os import getenv
 from api.auth import auth_bp
 import os
 
 
-app = Flask(__name__, template_folder='../templates');
+app = Flask(__name__, static_folder='../static', template_folder='../templates');
 CORS(app)
 app.config['SECRET_KEY'] = getenv('SECRET_KEY', os.urandom(24))
 app.config['SESSION_TYPE'] = 'filesystem'
@@ -20,6 +21,18 @@ Session(app)
 
 app.register_blueprint(app_views, url_prefix='/api')
 app.register_blueprint(auth_bp)
+
+
+def obfuscate_id(user_id):
+    """ obfuscation (reverse and shift characters) """
+    obfuscated = ''.join(chr(ord(c) + 3) for c in user_id[::-1])
+    return obfuscated
+
+
+def deobfuscate_id(obfuscated_id):
+    """ Reverse the obfuscation """
+    user_id = ''.join(chr(ord(c) - 3) for c in obfuscated_id[::-1])
+    return user_id
 
 
 @app.route('/profile', methods=['GET'], strict_slashes=False)
@@ -48,6 +61,35 @@ def dashboard_home():
     if not session.get('is_admin'):
         return redirect(url_for('auth_bp.dashboard_login_page'))
     return render_template('dashboard.html')
+
+
+@app.route('/dashboard/manager/users', methods=['GET'], strict_slashes=False)
+def dashboard_users_list():
+    """Renders the dashboard users list page"""
+    if not session.get('is_admin'):
+        return redirect(url_for('auth_bp.dashboard_login_page'))
+    return render_template('dashboard_users_list.html')
+
+
+@app.route('/dashboard/manager/update=user_id', methods=['GET'], strict_slashes=False)
+def update_user_page():
+    """
+        Renders the update user page
+        Get the obfuscated ID from the URL
+        Deobfuscate the ID
+    """
+    if not session.get('is_admin'):
+        return redirect(url_for('auth_bp.dashboard_login_page'))
+
+    obfuscated_id = request.args.get('id')
+    if not obfuscated_id:
+        return jsonify({"error": "User ID not found in URL"}), 400
+
+    user_id = deobfuscate_id(obfuscated_id)
+    user = storage.get(User, user_id)
+    if not user:
+        return jsonify({"error": "User not found"}), 404
+    return render_template('update_user.html', user=user)
 
 
 @app.route('/', methods=['GET'])

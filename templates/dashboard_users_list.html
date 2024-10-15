@@ -1,0 +1,101 @@
+<a href="{{ url_for('dashboard_home') }}">Dashboard</a> <br>
+<a href="{{ url_for('dashboard_logout') }}">Logout</a>
+<h2>Registered Users</h2>
+<ul id="userList"></ul>
+
+<script src="{{ url_for('static', filename='script.js') }}" defer></script>
+<script>
+  function fetchUserData() {
+    return fetch('/api/users')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("Failed to fetch user data");
+        }
+        return response.json();
+      });
+  }
+
+  function createUserListItem(user) {
+    const listItem = document.createElement("li");
+    const userInfo = document.createElement("span");
+    userInfo.textContent = `${user.full_name} (${user.email})`;
+
+    const viewBtn = document.createElement("button");
+    viewBtn.textContent = "View";
+
+    const updateBtn = document.createElement("button");
+    updateBtn.textContent = "Update";
+
+    const deleteBtn = document.createElement("button");
+    deleteBtn.textContent = "Delete";
+
+    const userDetails = document.createElement("div");
+    userDetails.classList.add("user-details");
+    userDetails.style.display = "none";
+    userDetails.innerHTML = `
+      <p>Full Name: ${user.full_name}</p>
+      <p>Email: ${user.email}</p>
+      <p>Address: ${user.address}</p>
+      <p>Phone: ${user.phone}</p>
+      <p>Account Active: ${user.account_activation_status ? 'Yes' : 'No'}</p>
+    `;
+
+    listItem.appendChild(userInfo);
+    listItem.appendChild(viewBtn);
+    listItem.appendChild(updateBtn);
+    listItem.appendChild(deleteBtn);
+    listItem.appendChild(userDetails);
+
+    return listItem;
+  }
+
+  function handleUserListClick(event) {
+    const target = event.target;
+    if (target.tagName === "BUTTON" && target.textContent === "View") {
+      const listItem = target.parentNode;
+      const userDetails = listItem.querySelector(".user-details");
+      const isOpen = userDetails.style.display !== "none";
+      const openUserDetails = userList.querySelectorAll(".user-details:not([style*='display: none'])");
+      if (openUserDetails.length >= 2) {
+        openUserDetails[0].style.display = "none";
+      }
+      userDetails.style.display = isOpen ? "none" : "block";
+    } else if (target.tagName === "BUTTON") {
+      const listItem = target.parentNode;
+      const userId = listItem.dataset.userId;
+
+      if (target.textContent === "Update") {
+        window.location.href = `/dashboard/manager/update=user_id?id=${obfuscate_id(userId)}`; 
+      } else if (target.textContent === "Delete") {
+        if (confirm(`Warning! Are you sure you want to delete ${listItem.querySelector("span").textContent}?`)) {
+          fetch(`/api/users/${userId}`, { method: "DELETE" })
+            .then(response => {
+              if (response.ok) {
+                listItem.remove();
+              } else {
+                console.error("Failed to delete user");
+              }
+            })
+            .catch(error => {
+              console.error("Error deleting user:", error);
+            });
+        }
+      }
+    }
+  }
+
+  const userList = document.getElementById("userList");
+  userList.addEventListener("click", handleUserListClick);
+
+  fetchUserData()
+    .then(users => {
+      users.forEach(user => {
+        const listItem = createUserListItem(user);
+        listItem.dataset.userId = user.id;
+        userList.appendChild(listItem);
+      });
+    })
+    .catch(error => {
+      console.error("Error fetching users:", error);
+    });
+</script>
