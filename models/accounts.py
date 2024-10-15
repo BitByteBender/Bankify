@@ -20,3 +20,17 @@ class Account(BaseModel, Base):
 
     def __repr__(self):
         return "<Account id={}, user_id='{}', balance={}>".format(self.id, self.user_id, self.balance)
+<<<<<<< HEAD
+=======
+
+    def __init__(self, user_id, initial_balance=0.0):
+        super().__init__()
+        self.user_id = user_id
+        self.balance = initial_balance
+
+    def to_dict(self):
+        return {
+            'user_id': self.user_id,
+            'balance': self.balance
+        }
+>>>>>>> 7e811f048a543dee8deabb2eb8d2d42937b3de3c
