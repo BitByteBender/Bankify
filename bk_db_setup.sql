@@ -3,3 +3,20 @@ USE bk_db;
 CREATE USER IF NOT EXISTS 'bk_dev'@'localhost' IDENTIFIED BY 'bk_dev_pwd';
 GRANT ALL PRIVILEGES ON bk_db.* TO 'bk_dev'@'localhost' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
+<<<<<<< HEAD
+=======
+
+CREATE TABLE IF NOT EXISTS accounts (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id VARCHAR(255) NOT NULL,
+    balance DECIMAL(10, 2) DEFAULT 0.00
+);
+
+CREATE TABLE IF NOT EXISTS transactions (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id VARCHAR(255) NOT NULL,
+    amount DECIMAL(10, 2) NOT NULL,
+    transaction_type VARCHAR(50),
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+>>>>>>> 7e811f048a543dee8deabb2eb8d2d42937b3de3c
