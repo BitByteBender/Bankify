@@ -30,3 +30,14 @@
 * Update
 * Cancel on success/failure
 ***************************
+* Fetch Data {Dashboard}:
+*****************************************************
+* Registered users list {View, Update, Delete} [Done]
+* Users Accounts [in-progress]
+* Transactions lists [in-progress]
+****************************************************
+* Swap(sender/receiver) Functionality:
+*****************************
+* Deposit [in-progress]
+* Withdraw [in-progress]
+****************************
