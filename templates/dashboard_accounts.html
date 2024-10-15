@@ -1,6 +1,6 @@
 <h2>All Accounts</h2>
 <ul id="accountList"></ul>
-
+<script src="{{ url_for('static', filename='script.js') }}" defer></script>
 <script>
   fetch('/api/accounts')
     .then(response => {
@@ -41,7 +41,7 @@
         btn.addEventListener("click", () => {
           const listItem = btn.parentNode.parentNode;
           const accountId = listItem.querySelector('span').dataset.accountId;
-          window.location.href = `/dashboard/manager/update_account/${accountId}`;
+          window.location.href = `/dashboard/manager/update=account_id?id=${obfuscate_id(accountId)}`;
         });
       });
 
