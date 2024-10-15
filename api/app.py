@@ -103,11 +103,17 @@ def dashboard_accounts_page():
     return render_template('dashboard_accounts.html')
 
 
-@app.route('/dashboard/manager/update_account/<account_id>', methods=['GET'], strict_slashes=False)
-def update_account_page(account_id):
+@app.route('/dashboard/manager/update=account_id', methods=['GET'], strict_slashes=False)
+def update_account_page():
     """Renders the update account page"""
     if not session.get('is_admin'):
         return redirect(url_for('auth_bp.dashboard_login_page'))
+
+    obfuscated_id = request.args.get('id')
+    if not obfuscated_id:
+        return jsonify({"error": "Account ID not found in URL"}), 400
+
+    account_id = deobfuscate_id(obfuscated_id)
     account = storage.get(Account, account_id)
     if not account:
         return jsonify({"error": "Account not found"}), 404
