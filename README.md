@@ -6,3 +6,5 @@
 * hashing password [Missing]
 * Styling [Missing]
 * Added {Display, Update, Cancel profile} [Done]
+* Added {Display User Specific Accounts} [Done]
+* Added {Display, Update, Cancel, Delete Accounts} [Dashboard] [DONE]
