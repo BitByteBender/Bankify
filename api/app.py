@@ -6,6 +6,7 @@ from flask_cors import CORS
 from flask_session import Session
 from models import storage
 from models.users import User
+from models.accounts import Account
 from os import getenv
 from api.auth import auth_bp
 import os
@@ -23,6 +24,7 @@ app.register_blueprint(app_views, url_prefix='/api')
 app.register_blueprint(auth_bp)
 
 
+""" Handlers """
 def obfuscate_id(user_id):
     """ obfuscation (reverse and shift characters) """
     obfuscated = ''.join(chr(ord(c) + 3) for c in user_id[::-1])
@@ -55,6 +57,7 @@ def check_if_logged_in():
         return redirect(url_for('home_page'))
 
 
+""" Admin - Interface """
 @app.route('/dashboard', methods=['GET'], endpoint='dashboard_home')
 def dashboard_home():
     """Renders the dashboard page"""
@@ -92,6 +95,26 @@ def update_user_page():
     return render_template('update_user.html', user=user)
 
 
+@app.route('/dashboard/manager/accounts', methods=['GET'], strict_slashes=False)
+def dashboard_accounts_page():
+    """Renders the dashboard accounts page"""
+    if not session.get('is_admin'):
+        return redirect(url_for('auth_bp.dashboard_login_page'))
+    return render_template('dashboard_accounts.html')
+
+
+@app.route('/dashboard/manager/update_account/<account_id>', methods=['GET'], strict_slashes=False)
+def update_account_page(account_id):
+    """Renders the update account page"""
+    if not session.get('is_admin'):
+        return redirect(url_for('auth_bp.dashboard_login_page'))
+    account = storage.get(Account, account_id)
+    if not account:
+        return jsonify({"error": "Account not found"}), 404
+    return render_template('update_account.html', account=account)
+
+
+""" Client - Interface """
 @app.route('/', methods=['GET'])
 def authentication_page():
     """ Renders the landing page with login and registration options """
@@ -120,6 +143,14 @@ def logout():
     """Logs out the user by clearing the session."""
     session.clear()
     return redirect(url_for('authentication_page'))
+
+
+@app.route('/accounts', methods=['GET'], strict_slashes=False)
+def accounts_page():
+    """ Renders the accounts page """
+    if 'user_id' not in session:
+        return redirect(url_for('authentication_page'))
+    return render_template('accounts.html', user_id=session['user_id'])
 
 
 @app.route('/dashboard/logout', methods=['GET'], strict_slashes=False)

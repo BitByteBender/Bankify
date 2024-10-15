@@ -1,0 +1,72 @@
+<h2>All Accounts</h2>
+<ul id="accountList"></ul>
+
+<script>
+  fetch('/api/accounts')
+    .then(response => {
+      if (!response.ok) {
+        throw new Error("Failed to fetch account data");
+      }
+      return response.json();
+    })
+    .then(accounts => {
+      const accountList = document.getElementById("accountList");
+      accounts.forEach(account => {
+        const listItem = document.createElement("li");
+        listItem.innerHTML = `
+          <span data-account-id="${account.id}">Account ID: ${account.id} (User ID: ${account.user_id})</span>
+          <button class="toggleBtn">View Details</button>
+          <div class="accountDetails" style="display: none;">
+            <p>Balance: ${account.balance}</p>
+            <p>Credits: ${account.credits}</p>
+            <p>On Hold: ${account.on_hold ? 'Yes' : 'No'}</p>
+            <button class="updateBtn">Update</button>
+            <button class="deleteBtn">Delete</button>
+          </div>
+        `;
+        accountList.appendChild(listItem);
+      });
+
+      const toggleBtns = document.querySelectorAll(".toggleBtn");
+      toggleBtns.forEach(btn => {
+        btn.addEventListener("click", () => {
+          const listItem = btn.parentNode;
+          const accountDetails = listItem.querySelector(".accountDetails");
+          accountDetails.style.display = accountDetails.style.display === "none" ? "block" : "none";
+        });
+      });
+
+      const updateBtns = document.querySelectorAll(".updateBtn");
+      updateBtns.forEach(btn => {
+        btn.addEventListener("click", () => {
+          const listItem = btn.parentNode.parentNode;
+          const accountId = listItem.querySelector('span').dataset.accountId;
+          window.location.href = `/dashboard/manager/update_account/${accountId}`;
+        });
+      });
+
+      const deleteBtns = document.querySelectorAll(".deleteBtn");
+      deleteBtns.forEach(btn => {
+        btn.addEventListener("click", () => {
+          const listItem = btn.parentNode.parentNode;
+          const accountId = listItem.querySelector('span').dataset.accountId;
+          if (confirm(`Are you sure you want to delete account ${accountId}?`)) {
+            fetch(`/api/accounts/${accountId}`, { method: "DELETE" })
+              .then(response => {
+                if (response.ok) {
+                  btn.parentNode.parentNode.remove();
+                } else {
+                  console.error("Failed to delete account");
+                }
+              })
+              .catch(error => {
+                console.error("Error deleting account:", error);
+              });
+          }
+        });
+      });
+    })
+    .catch(error => {
+      console.error("Error fetching accounts:", error);
+    });
+</script>
