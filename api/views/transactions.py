@@ -1,3 +1,5 @@
+#!/usur/bin/env python3
+
 from flask import Blueprint, request, jsonify
 from models import storage
 from models.account import Account

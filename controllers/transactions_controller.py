@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from models.account import Account
 from models.transaction import Transaction
 from models import storage
