@@ -1,0 +1,51 @@
+<h2>Update Account</h2>
+
+<form id="updateAccountForm">
+  <label for="balance">Balance:</label>
+  <input type="number" id="balance" name="balance" value="{{ account.balance }}" required step="0.01"><br><br>
+
+  <label for="credits">Credits:</label>
+  <input type="number" id="credits" name="credits" value="{{ account.credits }}" required><br><br>
+
+  <label for="on_hold">On Hold:</label>
+  <input type="checkbox" id="on_hold" name="on_hold" {% if account.on_hold %}checked{% endif %}><br><br>
+
+  <input type="submit" value="Update Account">
+  <button type="button" onclick="history.back()">Cancel</button>
+</form>
+
+<p id="message"></p>
+
+<script>
+  document.getElementById("updateAccountForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const formData = {
+      balance: parseFloat(document.getElementById("balance").value),
+      credits: parseInt(document.getElementById("credits").value),
+      on_hold: document.getElementById("on_hold").checked
+    };
+
+    fetch(`/api/accounts/{{ account.id }}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(formData)
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error("Account update failed");
+      }
+      return response.json();
+    })
+    .then(data => {
+      // Redirect to the account list page on success
+      window.location.href = '/dashboard/manager/accounts';  
+    })
+    .catch(error => {
+      document.getElementById("message").textContent = "Account update failed!";
+      console.error("Error:", error);
+    });
+  });
+</script>
