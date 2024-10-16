@@ -8,3 +8,6 @@
 * Added {Display, Update, Cancel profile} [Done]
 * Added {Display User Specific Accounts} [Done]
 * Added {Display, Update, Cancel, Delete Accounts} [Dashboard] [DONE]
+* Added Transaction Viewer [Done]
+* Added Transactional System [Done]
+* Styling [in-progress]
