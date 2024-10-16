@@ -46,33 +46,6 @@ def gets_all_acc_trx(account_id):
     
     return jsonify(trx_to_return), 200
 
-""" Old
-@app_views.route(ACC_PATH + TRX_PATH, methods=['GET'], strict_slashes=False)
-def gets_all_acc_trx(account_id):
-    # Retrieves all Transactions done by a specific account as a sender or receiver
-    acc_obj = storage.get(Account, account_id) or abort(404)
-    
-    sent_transactions = acc_obj.sent_transactions
-    received_transactions = acc_obj.received_transactions
-    
-    trx_to_return = []
-    
-    if sent_transactions:
-        trx_to_return.extend(
-            trx.to_dict() for trx in sent_transactions if trx.status == TransactionStatus.SENT
-        )
-        
-    if received_transactions:
-        trx_to_return.extend(
-            trx.to_dict() for trx in received_transactions if trx.status == TransactionStatus.RECEIVED
-        )
-    
-    if not trx_to_return:
-        return jsonify({"message": "No transactions found for this account"}), 200
-    
-    return jsonify(trx_to_return), 200
-"""
-
 """ this has been updated """
 @app_views.route(TRX_PATH, methods=['POST'], strict_slashes=False)
 def create_trx():
