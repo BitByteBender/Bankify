@@ -101,3 +101,6 @@ class DBStorage:
         """ Remove the current session """
         if self.__session:
             self.__session.close()
+
+    def get_session(self):
+        return self.__session
