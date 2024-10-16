@@ -48,3 +48,11 @@
 * Dashboard:
 -> Users account list {View, Update, Delete, Cancel} [Done]
 **********************************************************
+* Transactions Functionality:
+************************************************************
+* Client Side:
+-> User can send transactions from a select of owned accounts
+-> User can view transaction as {Sent, Received}
+* Dashboard:
+-> Admins can view transactions details
+*************************************************************
