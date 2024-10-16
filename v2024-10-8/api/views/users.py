@@ -78,7 +78,7 @@ def update_user_record(user_id):
     return (json.dumps(user_obj.to_dict(), indent=3) + '\n', 200)
 
 
-@app_views.route(PATH + '/<user_id>', methods=['DELETE'], strict_slashes=False)
+@app_views.route(PATH + '/<user_id>', methods=['DEL'], strict_slashes=False)
 def deletes_user_record(user_id):
     """ Deletes a User record """
     user_obj = storage.get(User, user_id) or abort(404, "User not found")

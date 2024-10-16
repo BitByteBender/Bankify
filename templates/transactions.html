@@ -1,0 +1,55 @@
+<h2>My Transactions</h2>
+
+<h3>Received Transactions</h3>
+<ul id="receivedTransactions"></ul>
+
+<h3>Sent Transactions</h3>
+<ul id="sentTransactions"></ul>
+
+<script>
+  const userId = "{{ user_id }}";
+
+  fetch(`/api/users/${userId}/accounts`)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error("Failed to fetch account data");
+      }
+      return response.json();
+    })
+    .then(accounts => {
+      const transactionPromises = accounts.map(account => { 
+        return fetch(`/api/accounts/${account.id}/trx`)
+          .then(response => {
+            if (!response.ok) {
+              throw new Error("Failed to fetch transaction data");
+            }
+            return response.json();
+          });
+      });
+
+      Promise.all(transactionPromises)
+        .then(allTransactions => {
+          const receivedTransactionsList = document.getElementById("receivedTransactions");
+          const sentTransactionsList = document.getElementById("sentTransactions");
+
+          const transactions = allTransactions.flat(); 
+
+          transactions.forEach(transaction => {
+            const listItem = document.createElement("li");
+            listItem.textContent = `Transaction ID: ${transaction.id}, Amount: ${transaction.amount}, Status: ${transaction.status}`;
+
+            if (transaction.status.toUpperCase() === "RECEIVED") {
+              receivedTransactionsList.appendChild(listItem);
+            } else if (transaction.status.toUpperCase() === "SENT") {
+              sentTransactionsList.appendChild(listItem);
+            }
+          });
+        })
+        .catch(error => {
+          console.error("Error fetching transactions:", error);
+        });
+    })
+    .catch(error => {
+      console.error("Error fetching accounts:", error);
+    });
+</script>
