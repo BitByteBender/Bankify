@@ -58,6 +58,7 @@ def check_if_logged_in():
 
 
 """ Admin - Interface """
+@app.route('/dashboard/', methods=['GET'], endpoint='dashboard_home')
 @app.route('/dashboard', methods=['GET'], endpoint='dashboard_home')
 def dashboard_home():
     """Renders the dashboard page"""
@@ -120,15 +121,15 @@ def update_account_page():
     return render_template('update_account.html', account=account)
 
 
-""" Client - Interface """
-@app.route('/', methods=['GET'])
-def authentication_page():
-    """ Renders the landing page with login and registration options """
-    if 'user_id' in session:
-        return redirect(url_for('home_page'))
-    return render_template('authentication.html')
+@app.route('/dashboard/manager/transactions', methods=['GET'], strict_slashes=False)
+def dashboard_transactions_page():
+    """Renders the dashboard transactions page"""
+    if not session.get('is_admin'):
+        return redirect(url_for('auth_bp.dashboard_login_page'))
+    return render_template('dashboard_transactions.html')
 
 
+""" Auth - routes """
 @app.route('/register', methods=['GET'], strict_slashes=False)
 def register():
     """ Serve the registration form """
@@ -151,6 +152,22 @@ def logout():
     return redirect(url_for('authentication_page'))
 
 
+@app.route('/dashboard/logout', methods=['GET'], strict_slashes=False)
+def dashboard_logout():
+    """Logs out the user by clearing the session."""
+    session.clear()
+    return redirect(url_for('auth_bp.dashboard_login_page'))
+
+
+""" Client - Interface """
+@app.route('/', methods=['GET'])
+def authentication_page():
+    """ Renders the landing page with login and registration options """
+    if 'user_id' in session:
+        return redirect(url_for('home_page'))
+    return render_template('authentication.html')
+
+
 @app.route('/accounts', methods=['GET'], strict_slashes=False)
 def accounts_page():
     """ Renders the accounts page """
@@ -159,11 +176,20 @@ def accounts_page():
     return render_template('accounts.html', user_id=session['user_id'])
 
 
-@app.route('/dashboard/logout', methods=['GET'], strict_slashes=False)
-def dashboard_logout():
-    """Logs out the user by clearing the session."""
-    session.clear()
-    return redirect(url_for('auth_bp.dashboard_login_page'))
+@app.route('/transactions', methods=['GET'], strict_slashes=False)
+def transactions_page():
+    """ Renders the transactions page """
+    if 'user_id' not in session:
+        return redirect(url_for('authentication_page'))
+    return render_template('transactions.html', user_id=session['user_id'])
+
+
+@app.route('/send_transaction', methods=['GET'], strict_slashes=False)
+def send_transaction_page():
+    """ Renders the send transaction page """
+    if 'user_id' not in session:
+        return redirect(url_for('authentication_page'))
+    return render_template('trx_sender.html', user_id=session['user_id'])
 
 
 @app.route('/', methods=['GET'])

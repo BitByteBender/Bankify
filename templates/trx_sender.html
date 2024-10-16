@@ -1,0 +1,77 @@
+<h2>Send Transaction</h2>
+
+<form id="transactionForm">
+  <label for="account">Select Account:</label>
+  <select id="account" name="account"></select><br><br>
+
+  <label for="receiver_id">Receiver Account ID:</label>
+  <input type="text" id="receiver_id" name="receiver_id" required><br><br>
+
+  <label for="amount">Amount (USD):</label>
+  <input type="number" id="amount" name="amount" min="1" step="0.01" required><br><br>
+
+  <input type="submit" value="Send">
+</form>
+
+<p id="message"></p>
+
+<script>
+  const userId = "{{ user_id }}";
+
+  fetch(`/api/users/${userId}/accounts`)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error("Failed to fetch account data");
+      }
+      return response.json();
+    })
+    .then(accounts => {
+      const accountSelect = document.getElementById("account");
+      accounts.forEach(account => {
+        const option = document.createElement("option");
+        option.value = account.id;
+        option.textContent = `${account.id} (Balance: ${account.balance})`;
+        accountSelect.appendChild(option);
+      });
+    })
+    .catch(error => {
+      console.error("Error fetching accounts:", error);
+    });
+
+  document.getElementById("transactionForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const formData = {
+      sender_id: document.getElementById("account").value,
+      receiver_id: document.getElementById("receiver_id").value,
+      amount: parseFloat(document.getElementById("amount").value),
+      status: "SENT"
+    };
+
+    fetch('/api/trx', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(formData)
+    })
+    .then(response => {
+      if (!response.ok) {
+        if (response.status === 400) {
+          return response.json().then(data => {
+            throw new Error(data.description || "Transaction failed"); 
+          });
+        }
+        throw new Error("Transaction failed");
+      }
+      return response.json();
+    })
+    .then(data => {
+      alert(`Transaction successful!\nTransaction ID: ${data.id}\nSender ID: ${data.sender_id}\nReceiver ID: ${data.receiver_id}\nAmount: $${data.amount}`); 
+    })
+    .catch(error => {
+      document.getElementById("message").textContent = error.message;
+      console.error("Error:", error);
+    });
+  });
+</script>
