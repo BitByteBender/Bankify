@@ -84,7 +84,7 @@ def updates_account(account_id):
     return (json.dumps(account_obj.to_dict(), indent=3) + '\n', 200)
 
 
-@app_views.route(ACC_ID_PATH, methods=['DEL'], strict_slashes=False)
+@app_views.route(ACC_ID_PATH, methods=['DELETE'], strict_slashes=False)
 def deletes_account_record(account_id):
     """ Deletes a specific Account record by id """
     acc_obj = storage.get(Account, account_id) or abort(404, "Account not found")
