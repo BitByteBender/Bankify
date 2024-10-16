@@ -1,35 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Registration</title>
-</head>
-<body>
-    <h2>User Registration</h2>
-    <form id="registrationForm">
-        <label for="first_name">First Name:</label>
-        <input type="text" id="first_name" name="first_name" required><br><br>
+	<!--begin::Head-->
+	<head>
+<base href="/static/" />
+		<title>User Registration</title>
+		<meta charset="utf-8" />
+		<meta property="og:locale" content="en_US" />
+		<meta property="og:type" content="article" />
+		<link rel="canonical" href="http://authentication/layouts/corporate/sign-up.html" />
+		<link rel="shortcut icon" href="assets/media/logos/favicon.ico" />
+		<!--begin::Fonts(mandatory for all pages)-->
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
+		<!--end::Fonts-->
+		<!--begin::Global Stylesheets Bundle(mandatory for all pages)-->
+		<link href="assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
+		<link href="assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
+		<!--end::Global Stylesheets Bundle-->
+		<script>// Frame-busting to prevent site from being loaded within a frame without permission (click-jacking) if (window.top != window.self) { window.top.location.replace(window.self.location.href); }</script>
+	</head>
+	<!--end::Head-->
+	<!--begin::Body-->
+	<body id="kt_body" class="app-blank">
+		<!--begin::Theme mode setup on page load-->
+		<script>var defaultThemeMode = "light"; var themeMode; if ( document.documentElement ) { if ( document.documentElement.hasAttribute("data-bs-theme-mode")) { themeMode = document.documentElement.getAttribute("data-bs-theme-mode"); } else { if ( localStorage.getItem("data-bs-theme") !== null ) { themeMode = localStorage.getItem("data-bs-theme"); } else { themeMode = defaultThemeMode; } } if (themeMode === "system") { themeMode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"; } document.documentElement.setAttribute("data-bs-theme", themeMode); }</script>
+		<!--end::Theme mode setup on page load-->
+		<!--begin::Root-->
+		<div class="d-flex flex-column flex-root" id="kt_app_root">
+			<!--begin::Authentication - Sign-up -->
+			<div class="d-flex flex-column flex-lg-row flex-column-fluid">
+				<!--begin::Body-->
+				<div class="d-flex flex-column flex-lg-row-fluid w-lg-50 p-10 order-2 order-lg-1">
+					<!--begin::Form-->
+					<div class="d-flex flex-center flex-column flex-lg-row-fluid">
+						<!--begin::Wrapper-->
+						<div class="w-lg-500px p-10">
+							<!--begin::Form-->
+							<form class="form w-100" novalidate="novalidate" id="registrationForm">
+								<!--begin::Heading-->
+								<div class="text-center mb-11">
+									<!--begin::Title-->
+									<h1 class="text-gray-900 fw-bolder mb-3">User Registration</h1>
+									<!--end::Title-->
+								</div>
+								<!--begin::Heading-->
+								<!--begin::Input group=-->
+								<div class="fv-row mb-8">
+									<!--begin::Name-->
+									<input type="text" id="first_name" placeholder="Full Name" name="name" autocomplete="off" class="form-control bg-transparent" />
+									<!--end::Name-->
+								</div>
 
-        <label for="last_name">Last Name:</label>
-        <input type="text" id="last_name" name="last_name" required><br><br>
+								<div class="fv-row mb-8">
+									<!--begin::Name-->
+									<input type="text" id="last_name" placeholder="Last Name" name="last_name" autocomplete="off" class="form-control bg-transparent" />
+									<!--end::Name-->
+								</div>
 
-        <label for="phone">Phone:</label>
-        <input type="text" id="phone" name="phone" required><br><br>
+								<div class="fv-row mb-8">
+									<!--begin::Phone-->
+									<input type="text" id="phone" placeholder="Phone" name="phone" autocomplete="off" class="form-control bg-transparent" />
+									</div>
+									<!--end::Phone-->
+								<div class="fv-row mb-8">
+									<!--begin::Email-->
+									<input type="text" id="email" placeholder="Email" name="email" autocomplete="off" class="form-control bg-transparent" />
+									<!--end::Email-->
+								</div>
+								<!--begin::Input group-->
+								<div class="fv-row mb-8" data-kt-password-meter="true">
+									<!--begin::Wrapper-->
+									<div class="mb-1">
+										<!--begin::Input wrapper-->
+										<div class="position-relative mb-3">
+											<input class="form-control bg-transparent" id="password" type="password" placeholder="Password" name="password" autocomplete="off" />
+											<span class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2" data-kt-password-meter-control="visibility">
+												<i class="ki-duotone ki-eye-slash fs-2"></i>
+												<i class="ki-duotone ki-eye fs-2 d-none"></i>
+											</span>
+										</div>
+										<!--end::Input wrapper-->
+										<!--begin::Meter-->
+										<div class="d-flex align-items-center mb-3" data-kt-password-meter-control="highlight">
+											<div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2"></div>
+											<div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2"></div>
+											<div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2"></div>
+											<div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px"></div>
+										</div>
+										<!--end::Meter-->
+									</div>
+									<!--end::Wrapper-->
+									<!--begin::Hint-->
+									<div class="text-muted">Use 8 or more characters with a mix of letters, numbers & symbols.</div>
+									<!--end::Hint-->
+								</div>
+								<!--end::Input group=-->
+								<!--end::Input group=-->
+								<div class="fv-row mb-8">
+									<!--begin::Repeat Password-->
+									<input placeholder="Repeat Password" name="confirm-password" type="password" autocomplete="off" class="form-control bg-transparent" />
+									<!--end::Repeat Password-->
+								</div>
+								<!--end::Input group=-->
+								<div class="fv-row mb-8">
+									<input type="text" id="address" placeholder="Address" name="address" autocomplete="off" class="form-control bg-transparent" />
+									</div>
+								<!--begin::Submit button-->
+								<div class="d-grid mb-10">
+									<button type="submit" value="Register" class="btn btn-primary">
+										<!--begin::Indicator label-->
+										<span class="indicator-label">Sign up</span>
+										<!--end::Indicator label-->
+										<!--begin::Indicator progress-->
+										<span class="indicator-progress">Please wait... 
+										<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+										<!--end::Indicator progress-->
+									</button>
+								</div>
+								<div>
+									<p id="message"></p>
+								</div>
+								<!--end::Submit button-->
+								<!--begin::Sign up-->
+								<div class="text-gray-500 text-center fw-semibold fs-6">Already have an Account? 
+								<a href="{{ url_for('login_page') }}" class="link-primary fw-semibold">Sign in</a></div>
+								<!--end::Sign up-->
+							</form>
+							<!--end::Form-->
+						</div>
+						<!--end::Wrapper-->
+					</div>
+					<!--end::Form-->
+				</div>
+				<!--end::Body-->
 
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required><br><br>
+			</div>
+			<!--end::Authentication - Sign-up-->
+		</div>
+		<!--end::Root-->
+		<!--begin::Javascript-->
+		<script>var hostUrl = "assets/";</script>
+		<!--begin::Global Javascript Bundle(mandatory for all pages)-->
+		<script src="assets/plugins/global/plugins.bundle.js"></script>
+		<script src="assets/js/scripts.bundle.js"></script>
+		<!--end::Global Javascript Bundle-->
+		<!--begin::Custom Javascript(used for this page only)-->
+		<script src="assets/js/custom/authentication/sign-up/general.js"></script>
+		<!--end::Custom Javascript-->
+		<!--end::Javascript-->
 
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required><br><br>
-
-        <label for="address">Address:</label>
-        <input type="text" id="address" name="address" required><br><br>
-
-        <input type="submit" value="Register">
-    </form>
-
-    <p id="message"></p>
 
 <script>
     document.getElementById("registrationForm").addEventListener("submit", function(event){
@@ -72,4 +190,5 @@
     });
 </script>
 </body>
+	<!--end::Body-->
 </html>
