@@ -1,15 +1,12 @@
 #!/usr/bin/env python3
 
-<<<<<<< HEAD
 from api.views import app_views
-=======
-from api.views import app_views, transactions_bp
->>>>>>> 7e811f048a543dee8deabb2eb8d2d42937b3de3c
 from flask import Flask, jsonify, render_template, session, redirect, url_for, request
 from flask_cors import CORS
 from flask_session import Session
 from models import storage
 from models.users import User
+from models.accounts import Account
 from os import getenv
 from api.auth import auth_bp
 import os
@@ -24,13 +21,10 @@ app.config['SESSION_PERMANENT'] = False
 Session(app)
 
 app.register_blueprint(app_views, url_prefix='/api')
-<<<<<<< HEAD
 app.register_blueprint(auth_bp)
-=======
-app.register_blueprint(auth_bp, transactions_bp, url_prefix='/api')
->>>>>>> 7e811f048a543dee8deabb2eb8d2d42937b3de3c
 
 
+""" Handlers """
 def obfuscate_id(user_id):
     """ obfuscation (reverse and shift characters) """
     obfuscated = ''.join(chr(ord(c) + 3) for c in user_id[::-1])
@@ -63,6 +57,8 @@ def check_if_logged_in():
         return redirect(url_for('home_page'))
 
 
+""" Admin - Interface """
+@app.route('/dashboard/', methods=['GET'], endpoint='dashboard_home')
 @app.route('/dashboard', methods=['GET'], endpoint='dashboard_home')
 def dashboard_home():
     """Renders the dashboard page"""
@@ -100,14 +96,40 @@ def update_user_page():
     return render_template('update_user.html', user=user)
 
 
-@app.route('/', methods=['GET'])
-def authentication_page():
-    """ Renders the landing page with login and registration options """
-    if 'user_id' in session:
-        return redirect(url_for('home_page'))
-    return render_template('authentication.html')
+@app.route('/dashboard/manager/accounts', methods=['GET'], strict_slashes=False)
+def dashboard_accounts_page():
+    """Renders the dashboard accounts page"""
+    if not session.get('is_admin'):
+        return redirect(url_for('auth_bp.dashboard_login_page'))
+    return render_template('dashboard_accounts.html')
 
 
+@app.route('/dashboard/manager/update=account_id', methods=['GET'], strict_slashes=False)
+def update_account_page():
+    """Renders the update account page"""
+    if not session.get('is_admin'):
+        return redirect(url_for('auth_bp.dashboard_login_page'))
+
+    obfuscated_id = request.args.get('id')
+    if not obfuscated_id:
+        return jsonify({"error": "Account ID not found in URL"}), 400
+
+    account_id = deobfuscate_id(obfuscated_id)
+    account = storage.get(Account, account_id)
+    if not account:
+        return jsonify({"error": "Account not found"}), 404
+    return render_template('update_account.html', account=account)
+
+
+@app.route('/dashboard/manager/transactions', methods=['GET'], strict_slashes=False)
+def dashboard_transactions_page():
+    """Renders the dashboard transactions page"""
+    if not session.get('is_admin'):
+        return redirect(url_for('auth_bp.dashboard_login_page'))
+    return render_template('dashboard_transactions.html')
+
+
+""" Auth - routes """
 @app.route('/register', methods=['GET'], strict_slashes=False)
 def register():
     """ Serve the registration form """
@@ -135,6 +157,39 @@ def dashboard_logout():
     """Logs out the user by clearing the session."""
     session.clear()
     return redirect(url_for('auth_bp.dashboard_login_page'))
+
+
+""" Client - Interface """
+@app.route('/', methods=['GET'])
+def authentication_page():
+    """ Renders the landing page with login and registration options """
+    if 'user_id' in session:
+        return redirect(url_for('home_page'))
+    return render_template('authentication.html')
+
+
+@app.route('/accounts', methods=['GET'], strict_slashes=False)
+def accounts_page():
+    """ Renders the accounts page """
+    if 'user_id' not in session:
+        return redirect(url_for('authentication_page'))
+    return render_template('accounts.html', user_id=session['user_id'])
+
+
+@app.route('/transactions', methods=['GET'], strict_slashes=False)
+def transactions_page():
+    """ Renders the transactions page """
+    if 'user_id' not in session:
+        return redirect(url_for('authentication_page'))
+    return render_template('transactions.html', user_id=session['user_id'])
+
+
+@app.route('/send_transaction', methods=['GET'], strict_slashes=False)
+def send_transaction_page():
+    """ Renders the send transaction page """
+    if 'user_id' not in session:
+        return redirect(url_for('authentication_page'))
+    return render_template('trx_sender.html', user_id=session['user_id'])
 
 
 @app.route('/', methods=['GET'])

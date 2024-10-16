@@ -6,3 +6,4 @@
 * hashing password [Missing]
 * Styling [Missing]
 * Added {Display, Update, Cancel profile} [Done]
+>>>>>>>>> Temporary merge branch 2

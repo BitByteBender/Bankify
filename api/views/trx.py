@@ -18,10 +18,13 @@ ACC_PATH = '/accounts/<account_id>'
 @app_views.route(TRX_PATH, methods=['GET'], strict_slashes=False)
 def gets_all_system_trx():
     """ Retrieves all Transactions records in the system """
+    status = request.args.get('status')
     trx_objs = storage.all(Transaction).values()
+    if status:
+        trx_objs = [trx for trx in trx_objs if trx.status.value == status]
     return (json.dumps([trx.to_dict() for trx in trx_objs], indent=3) + '\n')
 
-
+""" Updated """
 @app_views.route(ACC_PATH + TRX_PATH, methods=['GET'], strict_slashes=False)
 def gets_all_acc_trx(account_id):
     """ Retrieves all Transactions done by a specific account as a sender or receiver """
@@ -33,21 +36,17 @@ def gets_all_acc_trx(account_id):
     trx_to_return = []
     
     if sent_transactions:
-        trx_to_return.extend(
-            trx.to_dict() for trx in sent_transactions if trx.status == TransactionStatus.SENT
-        )
+        trx_to_return.extend(trx.to_dict() for trx in sent_transactions if trx.status == TransactionStatus.SENT)
         
     if received_transactions:
-        trx_to_return.extend(
-            trx.to_dict() for trx in received_transactions if trx.status == TransactionStatus.RECEIVED
-        )
+        trx_to_return.extend(trx.to_dict() for trx in received_transactions if trx.status == TransactionStatus.RECEIVED)
     
     if not trx_to_return:
         return jsonify({"message": "No transactions found for this account"}), 200
     
     return jsonify(trx_to_return), 200
 
-
+""" this has been updated """
 @app_views.route(TRX_PATH, methods=['POST'], strict_slashes=False)
 def create_trx():
     """ Creates a new transaction """
@@ -72,7 +71,8 @@ def create_trx():
     if data['status'] == "SENT":
         amount = Decimal(data['amount'])
         if sender_account.balance < amount:
-            abort(400, description="Insufficient funds in sender's account")
+            #abort(400, description="Insufficient funds in sender's account")
+            return jsonify({"error": "Insufficient funds in sender's account"}), 400
 
         sender_account.balance -= amount
         receiver_account.balance += amount
