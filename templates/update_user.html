@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/update_user.css') }}">
   <title>Update User</title>
   <style>
     #showPassword {
@@ -15,6 +16,9 @@
 
 <body>
   <h1>Update User</h1>
+  <div class="back-link">
+    <a href="{{ url_for('dashboard_users_list') }}">← Back</a><br>
+  </div>
 
   <form id="updateUserForm">
     <label for="full_name">Full Name:</label>

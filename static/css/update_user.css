@@ -1,0 +1,149 @@
+/* Reset default margin and padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9fafc;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+/* Form container styling */
+form {
+    background-color: #ffffff;
+    border: 1px solid #3498db;
+    border-radius: 10px;
+    padding: 30px;
+    max-width: 500px;
+    width: 100%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Title styling */
+h1 {
+    text-align: center;
+    color: #3498db;
+    margin-bottom: 20px;
+}
+
+/* Back link styling */
+.back-link {
+    margin-bottom: 20px;
+    text-align: left;
+    width: 100%;
+    max-width: 500px;
+}
+
+.back-link a {
+    color: #3498db;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.back-link a:hover {
+    text-decoration: underline;
+}
+
+/* Label styling */
+label {
+    font-weight: bold;
+    margin-bottom: 8px;
+    display: block;
+    color: #333;
+}
+
+/* Input field styling */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="submit"],
+button {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0 20px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+/* Checkbox styling */
+input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+/* Show password checkbox styling */
+#showPassword {
+    display: inline-block;
+    margin-left: 5px;
+    font-size: 14px;
+}
+
+/* Submit button styling */
+input[type="submit"] {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Hover effect for submit button */
+input[type="submit"]:hover {
+    background-color: #2980b9;
+}
+
+/* Cancel button styling */
+button {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Hover effect for cancel button */
+button:hover {
+    background-color: #c0392b;
+}
+
+/* Error message styling */
+p#errorMessage {
+    color: red;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 10px;
+}
+
+/* Success message styling */
+p#message {
+    color: green;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 10px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    form {
+        padding: 20px;
+    }
+    
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="submit"],
+    button {
+        font-size: 14px;
+    }
+}

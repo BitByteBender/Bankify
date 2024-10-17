@@ -1,0 +1,66 @@
+/* Body styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9fafc;
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Center container */
+.container {
+    text-align: center; /* Center the text */
+    padding: 20px;
+    border: 2px solid #3498db; /* Blue border */
+    border-radius: 15px; /* Rounded corners */
+    background-color: white; /* Background color for contrast */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
+    max-width: 400px; /* Constrain the width */
+}
+
+/* Link grid styling */
+.link-grid {
+    display: grid;
+    grid-template-columns: 1fr; /* Single column layout */
+    gap: 15px; /* Space between items */
+    margin-top: 20px;
+}
+
+/* Link box styling */
+.link-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px; /* Reduce padding for smaller look */
+    border: 2px solid #3498db; /* Blue border */
+    border-radius: 10px; /* Slightly rounded corners */
+    background-color: #4f4f4f;
+    transition: background-color 0.3s, color 0.3s;
+    cursor: pointer;
+}
+
+/* Style the links */
+.link-box a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    font-size: 0.9em; /* Smaller text */
+}
+
+/* Hover effect for links */
+.link-box:hover {
+    background-color: #3498db; /* Change background on hover */
+}
+
+.link-box:hover a {
+    color: white;
+}
+
+/* Title styling */
+.container h1 {
+    margin-bottom: 20px;
+    font-size: 1.5em; /* Smaller font size */
+    color: #333;
+}

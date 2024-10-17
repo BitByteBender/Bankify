@@ -1,0 +1,138 @@
+/* Reset default margin and padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body styling */
+body {
+    font-family: Arial, sans-serif; /* Font style */
+    background-color: #f9fafc; /* Light background color */
+}
+
+/* Back link styling */
+.back-link {
+    text-align: center; /* Center the back link */
+    margin-bottom: 20px; /* Space below the back link */
+    margin-top: 20px;
+}
+
+.back-link a {
+    color: #3498db; /* Link color */
+    text-decoration: none; /* Remove underline */
+    font-weight: bold; /* Bold text */
+}
+
+/* Container for accounts */
+.container {
+    max-width: 650px; /* Max width for the container */
+    margin: 120px auto; /* Center horizontally with margin at the top */
+    padding: 20px; /* Padding inside the container */
+    border: 2px solid #3498db; /* Border color */
+    border-radius: 10px; /* Rounded corners */
+    background-color: #fff; /* White background for the container */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
+    position: relative; /* Position relative for absolute positioned arrows */
+    overflow: hidden; /* Hide overflow for better scroll handling */
+}
+
+/* Scrollable arrows styling */
+.scrollable-arrow {
+    position: absolute; /* Position arrows absolutely */
+    left: 50%; /* Center arrows horizontally */
+    transform: translateX(-50%); /* Translate to center */
+    background-color: #3498db; /* Background color */
+    color: white; /* Text color */
+    padding: 10px; /* Padding around the text */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor for better UX */
+    z-index: 1; /* Above other content */
+}
+
+/* Position arrows */
+#scroll-up {
+    top: -25px; /* Above the container */
+}
+
+#scroll-down {
+    bottom: -25px; /* Below the container */
+}
+
+/* Account list styling */
+#accountList {
+    max-height: 300px; /* Max height for scrolling */
+    overflow-y: auto; /* Vertical scroll if overflow */
+    margin-top: 10px; /* Space between title and list */
+    padding: 10px; /* Padding inside the list */
+    border: 1px solid #ccc; /* Border around the list */
+    border-radius: 5px; /* Rounded corners */
+}
+
+/* List item styling */
+#accountList li {
+    display: flex; /* Flex layout for item alignment */
+    justify-content: space-between; /* Space between item text and button */
+    align-items: center; /* Center items vertically */
+    padding: 10px; /* Padding inside each list item */
+    border-bottom: 1px solid #f0f0f0; /* Light border between items */
+}
+
+#accountList li:last-child {
+    border-bottom: none; /* Remove border for last item */
+}
+
+/* Button styling */
+.toggleBtn {
+    background-color: #3498db; /* Button background color */
+    color: white; /* Button text color */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Rounded corners */
+    padding: 5px 10px; /* Padding inside button */
+    cursor: pointer; /* Pointer cursor for better UX */
+}
+
+/* Button hover effect */
+.toggleBtn:hover {
+    background-color: #2980b9; /* Darker blue on hover */
+}
+
+/* Modal styles */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal content */
+.modal-content {
+    background-color: #fefefe; /* White background */
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 86px; /* Padding inside modal */
+    border: 1px solid #888; /* Border color */
+    width: 25%; /* Could be more or less, depending on screen size */
+    border-radius: 183px; /* Rounded corners */
+}
+
+/* Close button */
+.close {
+    color: #aaa; /* Grey color */
+    float: right; /* Right align */
+    font-size: 80px; /* Font size */
+    font-weight: bold; /* Bold font */
+    cursor: pointer; /* Pointer cursor */
+}
+
+.close:hover,
+.close:focus {
+    color: black; /* Darker on hover */
+    text-decoration: none; /* Remove underline */
+    cursor: pointer; /* Pointer cursor */
+}

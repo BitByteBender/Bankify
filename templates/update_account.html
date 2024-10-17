@@ -1,4 +1,16 @@
-<h2>Update Account</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Account</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/update_accounts.css') }}">
+</head>
+<body>
+    <div class="back-link">
+        <a href="{{ url_for('dashboard_accounts_page') }}">← Back</a>
+    </div>
+    <h2>Update Account</h2>
 
 <form id="updateAccountForm">
   <label for="balance">Balance:</label>
