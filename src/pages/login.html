@@ -1,26 +1,61 @@
-<!-- login.html -->
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link rel="stylesheet" href="../styles/login.css">
 </head>
 <body>
-    <div class="container">
-        <h2>Login</h2>
-        <form id="loginForm">
-            <label for="username">Email:</label>
-            <input type="email" id="username" required>
+<form id="loginForm" action="/login" method="post">
+    <input type="email" id="email" name="email" placeholder="Email" required>
+    <input type="password" id="password" name="password" placeholder="Password" required>
+    <button type="submit">Login</button>
+</form>
 
-            <label for="password">Password:</label>
-            <input type="password" id="password" required>
+<button id="forgotPasswordBtn">Forgot Password</button>
 
-            <button type="submit">Login</button>
-        </form>
-        <p>Don't have an account? <a href="register.html">Register here</a></p>
-    </div>
-    <script src="../components/button.js"></script> <!-- Include button.js for interactivity -->
+<script>
+    document.getElementById('loginForm').onsubmit = async function(event) {
+        event.preventDefault();
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        const response = await fetch('/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email, password })
+        });
+        const result = await response.json();
+        if (response.ok) {
+            alert('Login successful!');
+            window.location.href = result.redirect;
+        } else {
+            alert('Error: ' + result.error);
+        }
+    }
+
+    document.getElementById('forgotPasswordBtn').onclick = async function() {
+        const email = document.getElementById('email').value;
+
+        if (!email) {
+            alert("Please enter your email before resetting your password.");
+            return;
+        }
+
+        const response = await fetch('/forgot_password', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email })
+        });
+
+        const result = await response.json();
+        if (response.ok) {
+            alert(result.message);
+            window.location.href = "/reset_password";  
+        } else {
+            alert('Error: ' + result.error);
+        }
+    };
+</script>
 </body>
 </html>

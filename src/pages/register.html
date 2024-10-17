@@ -1,38 +1,75 @@
-<!-- register.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
-    <link rel="stylesheet" href="../styles/register.css">
+    <title>User Registration</title>
 </head>
 <body>
-    <div class="container">
-        <h2>Register</h2>
-        <form id="registerForm">
-            <label for="firstName">First Name:</label>
-            <input type="text" id="firstName" required>
+    <h2>User Registration</h2>
+    <form id="registrationForm">
+        <label for="first_name">First Name:</label>
+        <input type="text" id="first_name" name="first_name" required><br><br>
 
-            <label for="lastName">Last Name:</label>
-            <input type="text" id="lastName" required>
+        <label for="last_name">Last Name:</label>
+        <input type="text" id="last_name" name="last_name" required><br><br>
 
-            <label for="phone">Phone Number:</label>
-            <input type="tel" id="phone" required>
+        <label for="phone">Phone:</label>
+        <input type="text" id="phone" name="phone" required><br><br>
 
-            <label for="email">Email:</label>
-            <input type="email" id="email" required>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br><br>
 
-            <label for="address">Address:</label>
-            <input type="text" id="address" required>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br><br>
 
-            <label for="password">Password:</label>
-            <input type="password" id="password" required>
+        <label for="address">Address:</label>
+        <input type="text" id="address" name="address" required><br><br>
 
-            <button type="submit">Register</button>
-        </form>
-        <p>Already have an account? <a href="login.html">Login here</a></p>
-    </div>
-    <script src="../components/button.js"></script> <!-- Include button.js for interactivity -->
+        <input type="submit" value="Register">
+    </form>
+
+    <p id="message"></p>
+
+<script>
+    document.getElementById("registrationForm").addEventListener("submit", function(event){
+        event.preventDefault(); // Prevent default form submission
+
+        // Retrieving (Form-Data)
+        const formData = {
+            first_name: document.getElementById("first_name").value,
+            last_name: document.getElementById("last_name").value,
+            phone: document.getElementById("phone").value,
+            email: document.getElementById("email").value,
+            password: document.getElementById("password").value,
+            address: document.getElementById("address").value,
+            acc_activation: true,
+            is_admin: false,
+        };
+
+        fetch("http://0.0.0.0:5000/api/users", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(formData)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Registration failed");
+            }
+            return response.json();
+        })
+        .then(data => {
+            document.getElementById("message").textContent = "Registration successful!";
+            console.log(data);
+            window.location.href = "/login";
+        })
+        .catch(error => {
+            document.getElementById("message").textContent = "Registration failed!";
+            console.error("Error:", error);
+        });
+    });
+</script>
 </body>
 </html>

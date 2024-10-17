@@ -1,35 +1,150 @@
-<!-- profile.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-    <link rel="stylesheet" href="../styles/profile.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile</title>
+  <style>
+    #profileForm {
+      display: none;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h2>User Profile</h2>
-        <form id="profileForm">
-            <label for="firstName">First Name:</label>
-            <input type="text" id="firstName" required>
+  <h1>My Profile</h1>
 
-            <label for="lastName">Last Name:</label>
-            <input type="text" id="lastName" required>
+  <div id="profileData">
+    <p>Full Name: <span id="displayFullName"></span></p>
+    <p>Email: <span id="displayEmail"></span></p>
+    <p>Address: <span id="displayAddress"></span></p>
+    <p>Phone: <span id="displayPhone"></span></p>
+  </div>
 
-            <label for="phone">Phone Number:</label>
-            <input type="tel" id="phone" required>
+  <button id="updateBtn">Update Profile</button>
 
-            <label for="email">Email:</label>
-            <input type="email" id="email" required>
+  <form id="profileForm">
+    <label for="full_name">Full Name:</label>
+    <input type="text" id="full_name" name="full_name" required><br><br>
 
-            <label for="address">Address:</label>
-            <input type="text" id="address" required>
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required><br><br>
 
-            <button type="submit">Update Profile</button>
-        </form>
-    </div>
-    <script src="../components/button.js"></script> <!-- Include button.js for interactivity -->
-    <script src="../contexts/user.js"></script>  <!-- Include user.js for profile logic -->
+    <label for="address">Address:</label>
+    <input type="text" id="address" name="address" required><br><br>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required>
+    <input type="checkbox" id="showPassword"> Show<br><br>
+
+    <label for="phone">Phone:</label>
+    <input type="text" id="phone" name="phone" required><br><br>
+
+    <input type="submit" value="Confirm">
+    <button type="button" id="cancelBtn">Return</button>
+  </form>
+
+  <p id="message"></p>
+
+  <script>
+    const profileDataDiv = document.getElementById("profileData");
+    const profileForm = document.getElementById("profileForm");
+    const updateBtn = document.getElementById("updateBtn");
+    const cancelBtn = document.getElementById("cancelBtn");
+    const showPasswordCheckbox = document.getElementById("showPassword");
+    const passwordField = document.getElementById("password");
+
+    fetch(`/api/users/{{ user_id }}`)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("Failed to fetch profile data");
+        }
+        return response.json();
+      })
+      .then(data => {
+        document.getElementById("displayFullName").textContent = data.full_name;
+        document.getElementById("displayEmail").textContent = data.email;
+        document.getElementById("displayAddress").textContent = data.address;
+        document.getElementById("displayPhone").textContent = data.phone;
+
+        document.getElementById("full_name").value = data.full_name;
+        document.getElementById("email").value = data.email;
+        document.getElementById("address").value = data.address;
+	document.getElementById("password").value = data.password;
+        document.getElementById("phone").value = data.phone;
+      })
+      .catch(error => {
+        console.error("Error fetching profile:", error);
+        document.getElementById("message").textContent = "Error fetching profile data.";
+      });
+
+    showPasswordCheckbox.addEventListener("change", function() {
+      if (this.checked) {
+        passwordField.type = "text";
+      } else {
+        passwordField.type = "password";
+      }
+    });
+
+    updateBtn.addEventListener("click", function() {
+      profileDataDiv.style.display = "none";
+      updateBtn.style.display = "none";
+      profileForm.style.display = "block";
+    });
+
+    cancelBtn.addEventListener("click", function() {
+      profileForm.style.display = "none";
+      profileDataDiv.style.display = "block";
+      updateBtn.style.display = "block";
+    });
+
+    document.getElementById("profileForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const formData = {
+        full_name: document.getElementById("full_name").value,
+        email: document.getElementById("email").value,
+        address: document.getElementById("address").value,
+        password: document.getElementById("password").value,
+        phone: document.getElementById("phone").value,
+      };
+
+      fetch(`/api/users/{{ user_id }}`)
+        .then(response => response.json())
+        .then(data => {
+          const userId = data.id;
+
+          fetch(`/api/users/${userId}`, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(formData)
+          })
+          .then(response => {
+            if (!response.ok) {
+              throw new Error("Profile update failed");
+            }
+            return response.json();
+          })
+          .then(data => {
+            document.getElementById("displayFullName").textContent = data.full_name;
+            document.getElementById("displayEmail").textContent = data.email;
+            document.getElementById("displayAddress").textContent = data.address;
+            document.getElementById("displayPhone").textContent = data.phone;
+
+            profileForm.style.display = "none";
+            profileDataDiv.style.display = "block";
+            updateBtn.style.display = "block";
+
+            document.getElementById("message").textContent = "Profile updated successfully!";
+          })
+          .catch(error => {
+            document.getElementById("message").textContent = "Profile update failed!";
+            console.error("Error:", error);
+          });
+        })
+        .catch(error => console.error("Error fetching profile:", error));
+    });
+  </script>
 </body>
 </html>

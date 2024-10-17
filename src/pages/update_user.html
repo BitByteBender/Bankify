@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Update User</title>
+  <style>
+    #showPassword {
+      display: inline-block;
+      margin-left: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Update User</h1>
+
+  <form id="updateUserForm">
+    <label for="full_name">Full Name:</label>
+    <input type="text" id="full_name" name="full_name" value="{{ user.full_name }}" required><br><br>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" value="{{ user.email }}" required><br><br>
+
+    <label for="address">Address:</label>
+    <input type="text" id="address" name="address" value="{{ user.address }}" required><br><br>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" value="{{ user.password }}" required>
+    <input type="checkbox" id="showPassword"> <span id="showPassword">Show</span><br><br>
+
+    <label for="phone">Phone:</label>
+    <input type="text" id="phone" name="phone" value="{{ user.phone }}" required><br><br>
+
+    <label for="account_activation_status">Account Active:</label>
+    <input type="checkbox" id="account_activation_status" name="account_activation_status" {% if user.account_activation_status %}checked{% endif %}><br><br>
+
+    <input type="submit" value="Update User">
+    <button type="button" onclick="history.back()">Cancel</button>
+  </form>
+
+  <p id="message"></p>
+
+  <script>
+    const showPasswordCheckbox = document.getElementById("showPassword");
+    const passwordField = document.getElementById("password");
+
+    showPasswordCheckbox.addEventListener("change", function () {
+      if (this.checked) {
+        passwordField.type = "text";
+      } else {
+        passwordField.type = "password";
+      }
+    });
+
+    document.getElementById("updateUserForm").addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      const formData = {
+        full_name: document.getElementById("full_name").value,
+        email: document.getElementById("email").value,
+        address: document.getElementById("address").value,
+        password: document.getElementById("password").value,
+        phone: document.getElementById("phone").value,
+        account_activation_status: document.getElementById("account_activation_status").checked
+      };
+
+      fetch(`/api/users/{{ user.id }}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(formData)
+      })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error("User update failed");
+          }
+          return response.json();
+        })
+        .then(data => {
+          window.location.href = '/dashboard/manager/users';
+        })
+        .catch(error => {
+          document.getElementById("message").textContent = "User update failed!";
+          console.error("Error:", error);
+        });
+    });
+  </script>
+</body>
+
+</html>
