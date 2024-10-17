@@ -4,33 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Registration</title>
+    <link rel="stylesheet" href="static/css/register.css">
 </head>
 <body>
+    <div class="back-link">
+	<a href="/"><--Back--</a>
+    </div>
+    <div class="form-container">
     <h2>User Registration</h2>
     <form id="registrationForm">
-        <label for="first_name">First Name:</label>
-        <input type="text" id="first_name" name="first_name" required><br><br>
+        <label for="first_name"></label>
+        <input type="text" id="first_name" name="first_name" placeholder="First name" required><br><br>
 
-        <label for="last_name">Last Name:</label>
-        <input type="text" id="last_name" name="last_name" required><br><br>
+        <label for="last_name"></label>
+        <input type="text" id="last_name" name="last_name" placeholder="Last name" required><br><br>
 
-        <label for="phone">Phone:</label>
-        <input type="text" id="phone" name="phone" required><br><br>
+        <label for="phone"></label>
+        <input type="text" id="phone" name="phone" placeholder="Phone number" required><br><br>
 
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required><br><br>
+        <label for="email"></label>
+        <input type="email" id="email" name="email" placeholder="Email address" required><br><br>
 
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required><br><br>
+        <label for="password"></label>
+        <input type="password" id="password" name="password" placeholder="Enter a password" required><br><br>
 
-        <label for="address">Address:</label>
-        <input type="text" id="address" name="address" required><br><br>
+        <label for="address"></label>
+        <input type="text" id="address" name="address" placeholder="Your address" required><br><br>
 
         <input type="submit" value="Register">
     </form>
 
     <p id="message"></p>
-
+    </div>
 <script>
     document.getElementById("registrationForm").addEventListener("submit", function(event){
         event.preventDefault(); // Prevent default form submission

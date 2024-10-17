@@ -1,3 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Send Transaction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/trx_sender.css') }}">
+</head>
+<body>
+<div class="back-link">
+	<a href="/"><--Back--</a>
+</div>
+
+<div class="form-container">
 <h2>Send Transaction</h2>
 
 <form id="transactionForm">
@@ -14,7 +28,7 @@
 </form>
 
 <p id="message"></p>
-
+</div>
 <script>
   const userId = "{{ user_id }}";
 
@@ -75,3 +89,5 @@
     });
   });
 </script>
+</body>
+</html>

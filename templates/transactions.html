@@ -1,55 +1,95 @@
-<h2>My Transactions</h2>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Transactions</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/transactions.css') }}">
+</head>
+<body>
+    <div class="back-link">
+        <a href="/">← Back</a>
+    </div>
+    
 
-<h3>Received Transactions</h3>
-<ul id="receivedTransactions"></ul>
+    <div class="transaction-container">
+        <div class="toggle-buttons">
+            <button id="showSent">Sent</button>
+            <button id="showReceived">Received</button>
+        </div>
+        
+        <div class="scrollable-arrow" id="scroll-up">&#8593;</div>
 
-<h3>Sent Transactions</h3>
-<ul id="sentTransactions"></ul>
+	<!--<h3>Received Transactions</h3>-->
+        <ul id="receivedTransactions"></ul>
 
-<script>
-  const userId = "{{ user_id }}";
+	<!--<h3>Sent Transactions</h3>-->
+        <ul id="sentTransactions"></ul>
+        
+        <div class="scrollable-arrow" id="scroll-down">&#8595;</div>
+    </div>
 
-  fetch(`/api/users/${userId}/accounts`)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error("Failed to fetch account data");
-      }
-      return response.json();
-    })
-    .then(accounts => {
-      const transactionPromises = accounts.map(account => { 
-        return fetch(`/api/accounts/${account.id}/trx`)
-          .then(response => {
-            if (!response.ok) {
-              throw new Error("Failed to fetch transaction data");
-            }
-            return response.json();
-          });
-      });
+    <script>
+        const userId = "{{ user_id }}";
 
-      Promise.all(transactionPromises)
-        .then(allTransactions => {
-          const receivedTransactionsList = document.getElementById("receivedTransactions");
-          const sentTransactionsList = document.getElementById("sentTransactions");
+        fetch(`/api/users/${userId}/accounts`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Failed to fetch account data");
+                }
+                return response.json();
+            })
+            .then(accounts => {
+                const transactionPromises = accounts.map(account => { 
+                    return fetch(`/api/accounts/${account.id}/trx`)
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error("Failed to fetch transaction data");
+                            }
+                            return response.json();
+                        });
+                });
 
-          const transactions = allTransactions.flat(); 
+                Promise.all(transactionPromises)
+                    .then(allTransactions => {
+                        const receivedTransactionsList = document.getElementById("receivedTransactions");
+                        const sentTransactionsList = document.getElementById("sentTransactions");
 
-          transactions.forEach(transaction => {
-            const listItem = document.createElement("li");
-            listItem.textContent = `Transaction ID: ${transaction.id}, Amount: ${transaction.amount}, Status: ${transaction.status}`;
+                        const transactions = allTransactions.flat(); 
 
-            if (transaction.status.toUpperCase() === "RECEIVED") {
-              receivedTransactionsList.appendChild(listItem);
-            } else if (transaction.status.toUpperCase() === "SENT") {
-              sentTransactionsList.appendChild(listItem);
-            }
-          });
-        })
-        .catch(error => {
-          console.error("Error fetching transactions:", error);
-        });
-    })
-    .catch(error => {
-      console.error("Error fetching accounts:", error);
-    });
-</script>
+                        transactions.forEach(transaction => {
+                            const listItem = document.createElement("li");
+                            listItem.textContent = `Transaction ID: ${transaction.id}, Amount: ${transaction.amount}, Status: ${transaction.status}`;
+
+                            if (transaction.status.toUpperCase() === "RECEIVED") {
+                                receivedTransactionsList.appendChild(listItem);
+                            } else if (transaction.status.toUpperCase() === "SENT") {
+                                sentTransactionsList.appendChild(listItem);
+                            }
+                        });
+
+                        // Set default view
+                        showReceivedTransactions();
+
+                        // Add event listeners to toggle buttons
+                        document.getElementById('showSent').addEventListener('click', showSentTransactions);
+                        document.getElementById('showReceived').addEventListener('click', showReceivedTransactions);
+                    })
+                    .catch(error => {
+                        console.error("Error fetching transactions:", error);
+                    });
+            })
+            .catch(error => {
+                console.error("Error fetching accounts:", error);
+            });
+
+        function showSentTransactions() {
+            document.getElementById('sentTransactions').style.display = 'block';
+            document.getElementById('receivedTransactions').style.display = 'none';
+        }
+
+        function showReceivedTransactions() {
+            document.getElementById('receivedTransactions').style.display = 'block';
+            document.getElementById('sentTransactions').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

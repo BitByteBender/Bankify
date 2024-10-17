@@ -1,0 +1,101 @@
+/* Body styling: Full height and center everything */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9fafc;
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+/* Back link styling */
+.back-link {
+    position: absolute; /* Position the back link absolutely */
+    top: 20px; /* Distance from the top */
+    right: 20px; /* Distance from the right */
+    font-size: 16px; /* Font size for the back link */
+    color: #3498db; /* Color for the link */
+}
+
+.back-link a {
+    text-decoration: none; /* Remove underline from link */
+}
+
+/* Styling for the header */
+h1 {
+    font-size: 24px;
+    color: #1d2b4f;
+    margin-bottom: 40px; /* Added spacing between h1 and the form */
+}
+
+/* Form container styling */
+form {
+    background-color: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 350px;
+    text-align: center;
+    display: flex;
+    flex-direction: column; /* Stack form elements vertically */
+}
+
+/* Input fields styling */
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box;
+    outline: none;
+}
+
+input[type="email"]:focus,
+input[type="password"]:focus {
+    border-color: #3498db;
+}
+
+/* Login button styling */
+button[type="submit"] {
+    width: 100%;
+    padding: 15px;
+    background-color: #3498db;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-bottom: 20px; /* Spacing before Forgot Password */
+}
+
+button[type="submit"]:hover {
+    background-color: #2980b9;
+}
+
+/* Forgot Password button styling */
+#forgotPasswordBtn {
+    background-color: transparent;
+    border: none;
+    color: #3498db;
+    font-size: 14px;
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: underline;
+    margin-top: 10px; /* Push Forgot Password button to the end */
+}
+
+/* Center the form container vertically and horizontally */
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}

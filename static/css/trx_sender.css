@@ -1,0 +1,74 @@
+/* Body styling */
+body {
+    font-family: Arial, sans-serif; /* Font style */
+    background-color: #f9fafc; /* Light background color */
+    height: 100vh; /* Full height */
+    margin: 0; /* Remove default margin */
+    display: flex; /* Flexbox layout */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+}
+
+/* Styling for the back link */
+.back-link {
+    position: absolute;
+    top: 20px; /* Position the back link at the top */
+    left: 20px; /* Position the back link on the left */
+}
+
+.back-link a {
+    text-decoration: none; /* Remove underline */
+    color: #007bff; /* Blue color for the link */
+    font-size: 16px; /* Font size for the link */
+}
+
+.back-link a:hover {
+    text-decoration: underline; /* Underline on hover */
+}
+
+/* Form container styling */
+.form-container {
+    background-color: #ffffff; /* Background color for the form */
+    border: 2px solid #3498db; /* Border color */
+    border-radius: 15px; /* Rounded corners */
+    padding: 30px; /* Padding inside the container */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    width: 400px; /* Set a fixed width for the form */
+    text-align: center; /* Center text */
+}
+
+/* Label and input styling */
+label {
+    display: block; /* Block display for labels */
+    margin: 10px 0 5px; /* Margin around labels */
+}
+
+input[type="text"],
+input[type="number"],
+select {
+    width: 100%; /* Full width for input fields */
+    padding: 10px; /* Padding inside input fields */
+    border: 1px solid #ccc; /* Border color for input fields */
+    border-radius: 5px; /* Rounded corners for input fields */
+}
+
+/* Button styling */
+input[type="submit"] {
+    background-color: #3498db; /* Button background color */
+    color: white; /* Button text color */
+    padding: 10px 20px; /* Padding for button */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Rounded corners for button */
+    cursor: pointer; /* Pointer cursor for button */
+    transition: background-color 0.3s; /* Smooth transition */
+}
+
+input[type="submit"]:hover {
+    background-color: #2980b9; /* Darker blue on hover */
+}
+
+/* Message styling */
+#message {
+    margin-top: 15px; /* Margin above message */
+    color: red; /* Red text for error messages */
+}
