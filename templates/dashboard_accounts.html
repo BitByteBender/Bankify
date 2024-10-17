@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard_accounts.css') }}">
+  <title>Dashboard - Accounts</title>
+</head>
+
+<body>
+    <div class="back-link">
+        <a href="{{ url_for('dashboard_home') }}">← Back</a>
+    </div>
+
+    <div class="container"> <!-- Added container class -->
+        <h2>All Accounts</h2>
+        <div id="accountContainer">
+            <ul id="accountList"></ul>
+        </div>
+    </div>
+
+    <!-- Modal for account details -->
+    <div class="modal" id="accountModal">
+        <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span>
+            <h3>Account Details</h3>
+            <p id="modalBalance"></p>
+            <p id="modalCredits"></p>
+            <p id="modalOnHold"></p>
+            <button class="toggleBtn updateBtn" id="modalUpdateBtn">Update</button>
+            <button class="toggleBtn deleteBtn" id="modalDeleteBtn">Delete</button>
+        </div>
+    </div>
+  <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+  <script>
+    fetch('/api/accounts')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("Failed to fetch account data");
+        }
+        return response.json();
+      })
+      .then(accounts => {
+        const accountList = document.getElementById("accountList");
+        accounts.forEach(account => {
+          const listItem = document.createElement("li");
+          listItem.innerHTML = `
+            <span data-account-id="${account.id}">Account ID: ${account.id} (User ID: ${account.user_id})</span>
+            <button class="toggleBtn viewDetailsBtn">View Details</button>
+          `;
+          accountList.appendChild(listItem);
+        });
+
+        // Event listener for "View Details" buttons
+        const viewDetailsBtns = document.querySelectorAll(".viewDetailsBtn");
+        viewDetailsBtns.forEach(btn => {
+          btn.addEventListener("click", () => {
+            const listItem = btn.parentNode;
+            const accountId = listItem.querySelector('span').dataset.accountId;
+
+            // Fetch account details to display in the modal
+            fetch(`/api/accounts/${accountId}`)
+              .then(response => response.json())
+              .then(account => {
+                // Set modal content
+                document.getElementById("modalBalance").textContent = `Balance: ${account.balance}`;
+                document.getElementById("modalCredits").textContent = `Credits: ${account.credits}`;
+                document.getElementById("modalOnHold").textContent = `On Hold: ${account.on_hold ? 'Yes' : 'No'}`;
+                
+                // Show modal
+                document.getElementById("accountModal").style.display = "block";
+
+                // Update button click event
+                document.getElementById("modalUpdateBtn").onclick = () => {
+                  window.location.href = `/dashboard/manager/update=account_id?id=${obfuscate_id(account.id)}`;
+                };
+
+                // Delete button click event
+                document.getElementById("modalDeleteBtn").onclick = () => {
+                  if (confirm(`Are you sure you want to delete account ${account.id}?`)) {
+                    fetch(`/api/accounts/${account.id}`, { method: "DELETE" })
+                      .then(response => {
+                        if (response.ok) {
+                          listItem.remove(); // Remove the list item
+                          document.getElementById("accountModal").style.display = "none"; // Hide modal
+                        } else {
+                          console.error("Failed to delete account");
+                        }
+                      })
+                      .catch(error => {
+                        console.error("Error deleting account:", error);
+                      });
+                  }
+                };
+              })
+              .catch(error => {
+                console.error("Error fetching account details:", error);
+              });
+          });
+        });
+      })
+      .catch(error => {
+        console.error("Error fetching accounts:", error);
+      });
+
+    // Close modal functionality
+    document.getElementById("closeModal").onclick = () => {
+      document.getElementById("accountModal").style.display = "none";
+    };
+
+    // Close modal when clicking outside of the modal
+    window.onclick = event => {
+      if (event.target === document.getElementById("accountModal")) {
+        document.getElementById("accountModal").style.display = "none";
+      }
+    };
+  </script>
+</body>
+</html>

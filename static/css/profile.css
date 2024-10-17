@@ -1,0 +1,49 @@
+/* General body styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4; /* Light background for contrast */
+    margin: 0;
+    padding: 20px;
+}
+
+/* Center the profile container */
+#profileContainer {
+    max-width: 600px; /* Limit the width */
+    margin: 0 auto; /* Center horizontally */
+    padding: 20px; /* Inner padding */
+    background-color: #ffffff; /* White background for the card */
+    border: 2px solid #007BFF; /* Blue border */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+/* Styling the form inputs and buttons */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+button {
+    width: calc(100% - 20px); /* Full width minus padding */
+    padding: 10px; /* Inner padding for inputs */
+    margin: 10px 0; /* Margin for spacing */
+    border: 1px solid #ccc; /* Light gray border */
+    border-radius: 5px; /* Rounded corners */
+}
+
+/* Specific button styling */
+button {
+    background-color: #007BFF; /* Button background color */
+    color: white; /* Button text color */
+    border: none; /* Remove border */
+    cursor: pointer; /* Pointer cursor on hover */
+}
+
+button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    #profileContainer {
+        padding: 15px; /* Reduce padding on small screens */
+    }
+}

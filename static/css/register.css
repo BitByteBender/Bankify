@@ -1,0 +1,84 @@
+body {
+    font-family: Arial, sans-serif; /* Font style for the entire page */
+    background-color: #f4f7fc; /* Light background color */
+    display: flex; /* Use flexbox for centering */
+    justify-content: center; /* Center the content horizontally */
+    align-items: center; /* Center the content vertically */
+    height: 100vh; /* Full viewport height */
+    margin: 0; /* Remove default margin */
+}
+
+.back-link {
+    position: absolute; /* Position the back link absolutely */
+    top: 20px; /* Distance from the top */
+    right: 20px; /* Distance from the right */
+    font-size: 16px; /* Font size for the back link */
+    color: #3498db; /* Color for the link */
+}
+
+.back-link a {
+    text-decoration: none; /* Remove underline from link */
+}
+
+h2 {
+    font-size: 28px; /* Font size for the header */
+    color: #1d3557; /* Darker color for contrast */
+    margin-bottom: 20px; /* Space below the header */
+    text-align: center; /* Center the header text */
+}
+
+form {
+    background-color: #fff; /* White background for the form */
+    border-radius: 10px; /* Rounded corners for the form */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    padding: 20px; /* Padding inside the form */
+    width: 350px; /* Fixed width for the form */
+}
+
+label {
+    font-size: 16px; /* Font size for labels */
+    color: #333; /* Darker color for labels */
+    margin-bottom: 5px; /* Space below labels */
+    display: block; /* Block display to stack labels and inputs */
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%; /* Full width for inputs */
+    padding: 10px; /* Padding inside inputs */
+    margin-bottom: 15px; /* Space below inputs */
+    border: 1px solid #ccc; /* Border for inputs */
+    border-radius: 5px; /* Rounded corners for inputs */
+    font-size: 14px; /* Font size for inputs */
+    box-sizing: border-box; /* Include padding in width */
+}
+
+input[type="submit"] {
+    background-color: #3498db; /* Button background color */
+    color: white; /* Button text color */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Rounded corners for button */
+    padding: 10px; /* Padding inside button */
+    font-size: 16px; /* Font size for button */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s; /* Smooth transition */
+    width: 100%; /* Full width for button */
+}
+
+input[type="submit"]:hover {
+    background-color: #155a8a; /* Darker shade on hover */
+}
+
+#message {
+    margin-top: 15px; /* Space above the message */
+    color: #d9534f; /* Red color for error messages */
+    text-align: center; /* Center align the message */
+}
+
+/* Responsive design */
+@media (max-width: 400px) {
+    form {
+        width: 90%; /* Make form responsive on small screens */
+    }
+}

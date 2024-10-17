@@ -1,0 +1,53 @@
+/* Body styling */
+body {
+    font-family: Arial, sans-serif; /* Font style */
+    background-color: #f9fafc; /* Light background color */
+    height: 100vh; /* Full height */
+    margin: 0; /* Remove default margin */
+    display: flex; /* Flexbox layout */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+}
+
+/* Container for text and links */
+.container {
+    text-align: center; /* Center the text */
+}
+
+/* Link grid styling */
+.link-grid {
+    display: grid; /* Grid layout */
+    grid-template-columns: repeat(3, 1fr); /* Three equal columns */
+    gap: 20px; /* Space between grid items */
+    margin-top: 20px; /* Margin above the grid */
+}
+
+/* Link box styling */
+.link-box {
+    display: flex; /* Flexbox for center alignment of text */
+    justify-content: center; /* Center text horizontally */
+    align-items: center; /* Center text vertically */
+    padding: 40px; /* Padding around the link text */
+    border: 2px solid #3498db; /* Border color */
+    border-radius: 15px; /* Rounded corners */
+    background-color: #4f4f4f; /* Background color */
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+    cursor: pointer; /* Pointer cursor for better UX */
+}
+
+/* Style the links */
+.link-box a {
+    text-decoration: none; /* Remove underline */
+    color: white; /* Default link text color */
+    font-weight: bold; /* Make link text bold */
+}
+
+/* Hover effect for links */
+.link-box:hover {
+    background-color: #3498db; /* Background color on hover */
+}
+
+/* Change link color on box hover */
+.link-box:hover a {
+    color: white; /* Link color on hover */
+}

@@ -1,0 +1,67 @@
+/* static/css/authentication.css */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f7fc; /* Light background color */
+    display: flex;
+    justify-content: center; /* Center the content horizontally */
+    align-items: center; /* Center the content vertically */
+    height: 100vh; /* Full viewport height */
+    margin: 0; /* Remove default margin */
+}
+
+.border-container {
+    background-color: #fff; /* White background for the content */
+    border: 5px solid #1d72b8; /* Border color for the container */
+    border-radius: 20px; /* Rounded corners for the border */
+    padding: 30px; /* Padding inside the border */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow for a raised effect */
+    text-align: center; /* Center the text inside the container */
+}
+
+h1 {
+    font-size: 30px;
+    color: #1d3557;
+    margin-bottom: 20px;
+}
+
+p {
+    font-size: 18px;
+    color: #555;
+    margin-bottom: 40px;
+}
+
+ul {
+    list-style: none; /* Remove default list style */
+    padding: 0; /* Remove default padding */
+    display: flex; /* Use flexbox for layout */
+    justify-content: center; /* Center items horizontally */
+    gap: 20px; /* Space between buttons */
+}
+
+.auth-link {
+    text-decoration: none; /* Remove underline */
+    color: #1d72b8; /* Text color */
+    background-color: #fff; /* Button background color */
+    padding: 12px 30px; /* Button padding */
+    border-radius: 8px; /* Rounded corners */
+    font-size: 16px; /* Font size */
+    display: inline-block; /* Display as inline-block for button-like look */
+    border: 2px solid #1d72b8; /* Add a border */
+    transition: background-color 0.3s, box-shadow 0.3s, border-color 0.3s; /* Smooth transitions */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow */
+}
+
+.auth-link:hover {
+    background-color: #1d72b8; /* Change background color on hover */
+    color: white; /* Change text color to white on hover */
+    border-color: #155a8a; /* Darken border on hover */
+    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.15); /* Increase shadow on hover */
+    transform: translateY(-2px); /* Slight upward movement on hover */
+}
+
+.auth-link:active {
+    background-color: #1d72b8; /* Reset background color on active */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Reset shadow on click */
+    transform: translateY(0); /* Reset movement on click */
+}

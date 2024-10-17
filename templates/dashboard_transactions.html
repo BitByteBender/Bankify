@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard_transactions.css') }}">
+  <title>Dashboard - Transactions</title>
+</head>
+</body>
+<div class="back-link">
+    <a href="{{ url_for('dashboard_home') }}">← Back</a>
+</div>
+<h2>Transactions</h2>
+<ul id="transactionList"></ul>
+
+<script>
+  const transactionList = document.getElementById("transactionList");
+
+  function toggleDetails(transactionId) {
+    const detailsElement = document.getElementById(`details-${transactionId}`);
+    if (detailsElement.style.display === "none") {
+      detailsElement.style.display = "block";
+    } else {
+      detailsElement.style.display = "none";
+    }
+  }
+
+  function displayTransactions(transactions) {
+    transactionList.innerHTML = '';
+
+    if (transactions.length === 0) {
+      const noTransactionsMessage = document.createElement("p");
+      noTransactionsMessage.textContent = "No transactions found.";
+      transactionList.appendChild(noTransactionsMessage);
+    } else {
+      transactions.forEach(transaction => {
+        const listItem = document.createElement("li");
+
+        listItem.innerHTML = `
+          Transaction ID: ${transaction.id} 
+          <a href="#" onclick="toggleDetails('${transaction.id}')">view</a>
+          <div id="details-${transaction.id}" style="display:none;">
+            <p>ID: ${transaction.id}</p>
+            <p>Sender: ${transaction.sender_id}</p>
+            <p>Receiver: ${transaction.receiver_id}</p>
+            <p>Amount: $${transaction.amount}</p>
+            <p>Status: ${transaction.status}</p>
+          </div>
+        `;
+
+        transactionList.appendChild(listItem);
+      });
+    }
+  }
+
+  function fetchAndDisplayTransactions(url) {
+    fetch(url)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("Failed to fetch transaction data");
+        }
+        return response.json();
+      })
+      .then(transactions => {
+        displayTransactions(transactions);
+      })
+      .catch(error => {
+        console.error("Error fetching transactions:", error);
+      });
+  }
+
+  fetchAndDisplayTransactions('/api/trx');
+</script>

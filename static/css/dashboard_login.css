@@ -1,0 +1,70 @@
+/* Reset default margins and padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Ensures padding and border are included in element's total width and height */
+}
+
+/* Body styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4; /* Light background color for contrast */
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 100vh; /* Full viewport height */
+}
+
+/* Login container styling */
+.login-container {
+    max-width: 400px; /* Max width for the login box */
+    width: 100%; /* Full width on smaller screens */
+    padding: 20px; /* Inner padding */
+    background-color: #ffffff; /* White background for the form */
+    border: 2px solid #007BFF; /* Blue border */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+/* Heading styling */
+h1 {
+    margin-bottom: 20px; /* Space below the heading */
+    text-align: center; /* Center the heading text */
+    color: #333; /* Dark text color */
+}
+
+/* Input field styling */
+input[type="email"],
+input[type="password"] {
+    width: 100%; /* Full width */
+    padding: 10px; /* Inner padding */
+    margin: 10px 0; /* Vertical spacing between fields */
+    border: 1px solid #ccc; /* Light gray border */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 16px; /* Font size for inputs */
+}
+
+/* Button styling */
+button {
+    width: 100%; /* Full width */
+    padding: 10px; /* Inner padding */
+    background-color: #007BFF; /* Blue background */
+    color: #ffffff; /* White text */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 16px; /* Font size for button */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s ease; /* Smooth transition for background color */
+}
+
+/* Button hover effect */
+button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .login-container {
+        padding: 15px; /* Reduce padding on small screens */
+    }
+}

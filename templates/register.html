@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+    <link rel="stylesheet" href="static/css/register.css">
+</head>
+<body>
+    <div class="back-link">
+	<a href="/"><--Back--</a>
+    </div>
+    <div class="form-container">
+    <h2>User Registration</h2>
+    <form id="registrationForm">
+        <label for="first_name"></label>
+        <input type="text" id="first_name" name="first_name" placeholder="First name" required><br><br>
+
+        <label for="last_name"></label>
+        <input type="text" id="last_name" name="last_name" placeholder="Last name" required><br><br>
+
+        <label for="phone"></label>
+        <input type="text" id="phone" name="phone" placeholder="Phone number" required><br><br>
+
+        <label for="email"></label>
+        <input type="email" id="email" name="email" placeholder="Email address" required><br><br>
+
+        <label for="password"></label>
+        <input type="password" id="password" name="password" placeholder="Enter a password" required><br><br>
+
+        <label for="address"></label>
+        <input type="text" id="address" name="address" placeholder="Your address" required><br><br>
+
+        <input type="submit" value="Register">
+    </form>
+
+    <p id="message"></p>
+    </div>
+<script>
+    document.getElementById("registrationForm").addEventListener("submit", function(event){
+        event.preventDefault(); // Prevent default form submission
+
+        // Retrieving (Form-Data)
+        const formData = {
+            first_name: document.getElementById("first_name").value,
+            last_name: document.getElementById("last_name").value,
+            phone: document.getElementById("phone").value,
+            email: document.getElementById("email").value,
+            password: document.getElementById("password").value,
+            address: document.getElementById("address").value,
+            acc_activation: true,
+            is_admin: false,
+        };
+
+        fetch("http://0.0.0.0:5000/api/users", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(formData)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Registration failed");
+            }
+            return response.json();
+        })
+        .then(data => {
+            document.getElementById("message").textContent = "Registration successful!";
+            console.log(data);
+            window.location.href = "/login";
+        })
+        .catch(error => {
+            document.getElementById("message").textContent = "Registration failed!";
+            console.error("Error:", error);
+        });
+    });
+</script>
+</body>
+</html>
